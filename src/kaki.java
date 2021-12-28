@@ -22,6 +22,8 @@ public class kaki {
             fin.close();
             din.close();
 
+            char yuvi = 'h';
+
         } catch (Exception e) {
             System.out.println("MOR HACHAMOR");
         }
