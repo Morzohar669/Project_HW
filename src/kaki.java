@@ -22,7 +22,7 @@ public class kaki {
             fin.close();
             din.close();
 
-            char yuvi = 'h';
+            char yuvi = 'O';
 
         } catch (Exception e) {
             System.out.println("MOR HACHAMOR");
