@@ -5,6 +5,9 @@
  */
 
 public class GraphEdge {
+
+    public GraphEdge next;
+    public GraphEdge prev;
     public GraphNode fromNode;
     public GraphNode toNode;
 
@@ -15,6 +18,17 @@ public class GraphEdge {
         this.toNode = toNode;
         //toNode.inDegree += 1;
     }
-}
 
-// This class is finished for now.
+    /* This function will get some given exist edge and will update the 'next' field of "this.edge"
+     * (means: the object that the function changes) to be the given edge  */
+    public void updateNext(GraphEdge newNextEdge){
+        this.next = newNextEdge;
+    }
+
+    /* This function will get some given exist edge and will update the 'prev' field of "this.edge"
+     * (means: the object that the function changes) to be the given edge  */
+    public void updatePrev(GraphEdge newPrevEdge){
+        this.prev = newPrevEdge;
+    }
+
+}

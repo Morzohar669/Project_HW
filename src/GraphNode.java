@@ -5,27 +5,49 @@
 
 public class GraphNode {
 
-    public GraphNode something;
-    final private int key;
+
+    public int inDegree;
+    public int outDegree;
+    public GraphNode next;
+    public GraphNode prev;
+    public int key;
+
+    public int color;
+    public int distance;
+    public GraphNode pi;
+
+    public GraphNode(){
+        this.key = 0;
+        this.inDegree = 0;
+        this.outDegree = 0;
+    }
 
     public GraphNode(int key){
         this.key = key;
-
-        //this.inDegree = 0;
-        //this.outDegree = 0;
+        this.inDegree = 0;
+        this.outDegree = 0;
     }
 
     /* This function find the out-degree of a given Node (n) in a given Graph (G) */
     public int getOutDegree(){
-        //return outDegree;
+        return outDegree;
     }
 
     /* This function find the in-degree of a given Node (n) in a given Graph (G) */
     public int getInDegree(){
-        //return inDegree;
+        return inDegree;
     }
 
-    public int getKey(){
-        return key;
+    /* This function will get some given exist node and will update the 'next' field of "this.node"
+    * (means: the object that the function changes) to be the given node  */
+    public void updateNext(GraphNode newNextNode){
+        this.next = newNextNode;
     }
+
+    /* This function will get some given exist node and will update the 'prev' field of "this.node"
+     * (means: the object that the function changes) to be the given node  */
+    public void updatePrev(GraphNode newPrevNode){
+        this.prev = newPrevNode;
+    }
+
 }
