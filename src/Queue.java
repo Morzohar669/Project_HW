@@ -1,3 +1,4 @@
+/* Implement FIFO*/
 public class Queue {
 
     QueueNode headOfQueue;
@@ -20,6 +21,7 @@ public class Queue {
         } else {
             tailOfQueue.next = qNode;
             tailOfQueue = qNode;
+            qNode.next = null;
         }
     }
 

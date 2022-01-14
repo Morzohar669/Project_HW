@@ -10,7 +10,7 @@ public class DynamicGraph {
     public GraphEdge edgeHead;
     public GraphEdge edgeTail;
 
-    // Constructor - probably need some work
+    // Constructor
     public DynamicGraph(){
         this.nodeHead = null;
         this.nodeTail = null;
@@ -42,10 +42,10 @@ public class DynamicGraph {
                 nodeHead = null;
                 nodeTail = null;
             }
-            else if (nodeHead == node && (nodeTail != node)){
+            else if (nodeHead == node){
                 nodeHead = node.next;
             }
-            else if (nodeTail != node && (nodeTail == node)){
+            else if (nodeTail == node){
                 nodeTail = node.prev;
             }
             else {
@@ -69,6 +69,8 @@ public class DynamicGraph {
             newGraphEdge.updatePrev(edgeTail);
             edgeTail = newGraphEdge;
         }
+
+        from.NeighborsD.insert(to);
         from.outDegree++;
         to.inDegree++;
 
@@ -78,19 +80,24 @@ public class DynamicGraph {
     public void deleteEdge(GraphEdge edge){
         // Delete the node from structure
         if ((edgeHead == edge) && (edgeTail == edge)){
-            nodeHead = null;
-            nodeTail = null;
+            this.edgeHead = null;
+            this.edgeTail = null;
         }
-        else if (edgeHead == edge && (edgeTail != edge)){
-            edgeHead = edge.next;
+        else if (edgeHead == edge){
+            this.edgeHead = edge.next;
+            edge.next.prev = null;
+
         }
-        else if (edgeHead != edge && (edgeTail == edge)){
-            edgeTail = edge.prev;
+        else if (edgeTail == edge){
+            this.edgeTail = edge.prev;
+            edge.prev.next = null;
         }
         else {
             edge.next.updatePrev(edge.prev);
             edge.prev.updateNext(edge.next);
         }
+
+        edge.fromNode.NeighborsD.delete(edge.toNode);
         edge.toNode.inDegree--;
         edge.fromNode.outDegree--;
     }
@@ -101,30 +108,41 @@ public class DynamicGraph {
         return arbitraryRootedTree;
     }
 
-    // Didn't worked on yet
+    /* This function gets some GraphNode, which will be the source of the Rooted Graph 'bfsTree' rooted at source
+    * the function will use the BFS algorithm to make sure that the RootedTree that returns from the function is:
+    * Rooted at source node
+    * runs at O(n+m) , n = total nodes, m = total edges;
+    * shortest paths tree;
+    * (uses Queue that we implemented in 2 bonus classes)  */
     public RootedTree bfs(GraphNode source){
         Queue Q;
         Q = bfs_initialization(source);
 
+        //while Q is not empty - keep going:
+        // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
         while (Q.headOfQueue != null){
-            QueueNode nodeToTraverse = Q.headOfQueue;
-            Q.dequeue();
-            ///  FOOOORRRRRRRRR לכל השכנים של nodeToTraverse תעשה!!!!
-            /// צריך לממש רשימת שכנויות בעזרת QUEUE בעבור כל צומת שיש בגרף ולתקף אותה בזמן אמת או בזמן ריצה
-            QueueNode v = new QueueNode();
-            GraphNode graphNodeOfV = v.value;
+            QueueNode QueueNodeToTraverse = Q.headOfQueue;
+            GraphNode GraphNodeToTraverse = QueueNodeToTraverse.value;
 
-                if (graphNodeOfV.color == 0){
-                    graphNodeOfV.color = 1;
-                    graphNodeOfV.distance = nodeToTraverse.value.distance + 1;
-                    graphNodeOfV.pi = nodeToTraverse.value.pi;
-                    Q.enqueue(v);
+            Q.dequeue();
+
+            //while 'GraphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
+            // take his first neighbor from the DDL
+            // בעיההההההההה אני רוצה להוציא את השכן כדי שבאיטרציה הבאה השכן השני יכנס אבל לא רוצה להרוס את הרשימה......
+            while (GraphNodeToTraverse.NeighborsD != null){
+                GraphNode GraphNeighbor = GraphNodeToTraverse.NeighborsD.headOfList;
+
+                if (GraphNeighbor.color == 0) {
+                    GraphNeighbor.color = 1;
+                    GraphNeighbor.distance = GraphNodeToTraverse.distance + 1;
+                    GraphNeighbor.pi = GraphNodeToTraverse.pi;
+                    Q.enqueue(new QueueNode(GraphNeighbor));
                 }
-            ////AFTER THE FOR
-            nodeToTraverse.value.color = 2;
+            }
+            GraphNodeToTraverse.color = 2;
         }
 
-        return bfsTree;
+        return new RootedTree();
     }
 
     //O(1)

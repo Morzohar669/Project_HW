@@ -1,12 +1,13 @@
-class Main{
-    public static void main(String[]args){
+class Main {
+    public static void main(String[] args) {
         DynamicGraph dynGraph = new DynamicGraph();
 
-        System.out.println("\n all null \n");
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead.fromNode,dynGraph.edgeHead.toNode);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n1). all null " +
+                "\n");
+        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+        System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
+        System.out.printf("the node tail is: %x\n", dynGraph.nodeHead);
 
         System.out.println("\n ------------------------- \n");
 
@@ -15,11 +16,13 @@ class Main{
         GraphNode i0 = dynGraph.insertNode(0);
         GraphNode im5 = dynGraph.insertNode(-5);
 
-
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n2). 1 should be node head -5 should be tail" +
+                "\n edge null " +
+                "\n");
+        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
 
         System.out.println("\n ------------------------- \n");
 
@@ -28,47 +31,72 @@ class Main{
         GraphEdge e3 = dynGraph.insertEdge(i1, im5);
         GraphEdge e4 = dynGraph.insertEdge(i2, i1);
 
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n3). 1 should be node head -5 should be tail" +
+                "\n 1-2 should be head edge, 2-1 should be tail edge " +
+                "\n");
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
 
         System.out.println("\n ------------------------- \n");
 
         dynGraph.deleteEdge(e4);
         dynGraph.deleteEdge(e1);
 
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n4). deleted 2-1 successes, deleted 1-2 successes " +
+                "\n1 should be node head -5 should be tail" +
+                "\n 1-0 should be head edge, 1-(-5) should be tail edge " +
+                "\n");
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
 
         System.out.println("\n ------------------------- \n");
 
         dynGraph.deleteNode(i2);
-        System.out.printf("the next of i1 is (should be i0): " ,i1.next);
         dynGraph.deleteNode(i1);
 
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n5). deleted node 2 successes, deleted node 1 failed " +
+                "\n1 should be node head -5 should be tail" +
+                "\n 1-0 should be head edge, 1-(-5) should be tail edge " +
+                "\n");
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
 
         System.out.println("\n ------------------------- \n");
 
         dynGraph.deleteEdge(e2);
         dynGraph.deleteEdge(e3);
+
+        System.out.println("\n6). deleted all edge successes " +
+                "\n1 should be node head -5 should be tail" +
+                "\n head edge should be null, tail edge should be null " +
+                "\n");
+        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
+
+        System.out.println("\n ------------------------- \n");
+
         dynGraph.deleteNode(i1);
         dynGraph.deleteNode(i0);
         dynGraph.deleteNode(im5);
 
-        System.out.printf("the edge head is: " ,dynGraph.edgeHead);
-        System.out.printf("the edge tail is: " ,dynGraph.edgeTail);
-        System.out.printf("the node head is: " ,dynGraph.nodeHead);
-        System.out.printf("the node tail is: " ,dynGraph.nodeHead);
+        System.out.println("\n7). deleted all node successes " +
+                "\nhead node should be null, tail node should be null" +
+                "\n head edge should be null, tail edge should be null " +
+                "\n");
+        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+        System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
+        System.out.printf("the node tail is: %x\n", dynGraph.nodeTail);
 
         System.out.println("\n ------------------------- \n");
-
 
     }
 }

@@ -1,13 +1,16 @@
 public class QueueNode {
 
+
     public QueueNode next;
     public GraphNode value;
 
-    public QueueNode(){
+    public QueueNode() {
         this.next = null;
     }
-    public QueueNode(GraphNode value){
+
+    public QueueNode(GraphNode value) {
         this.value = value;
+        this.next = null;
     }
 }
 
