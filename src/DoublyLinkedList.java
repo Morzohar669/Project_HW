@@ -1,43 +1,43 @@
 /* uses for the Neighbors list and implement insert and delete in O(1) */
 public class DoublyLinkedList {
 
-    GraphNode headOfList;
-    GraphNode tailOfList;
+    DoublyNode headOfList;
+    DoublyNode tailOfList;
 
     public DoublyLinkedList(){
         headOfList = null;
         tailOfList = null;
     }
 
-    public DoublyLinkedList(GraphNode head){
+    public DoublyLinkedList(DoublyNode head){
         this.headOfList = head;
         this.tailOfList = head;
     }
 
-    public void insert(GraphNode lNode) {
+    public void insert(DoublyNode lNode) {
         if (headOfList == null) {
             headOfList = lNode;
             tailOfList = lNode;
         } else {
-            tailOfList.nextNeighbor = lNode;
+            tailOfList.nextDDL = lNode;
+            lNode.prevDDL = tailOfList;
             tailOfList = lNode;
-            lNode.nextNeighbor = null;
         }
     }
 
-    public void delete(GraphNode lNode) {
+    public void delete(DoublyNode lNode) {
         if ((headOfList == lNode) && (tailOfList == lNode)) {
             headOfList = null;
             tailOfList = null;
         } else if (tailOfList == lNode) {
-            tailOfList = lNode.prevNeighbor;
-            lNode.prevNeighbor.nextNeighbor = null;
+            lNode.prevDDL.nextDDL = null;
+            tailOfList = lNode.prevDDL;
         } else if (headOfList == lNode) {
-            headOfList = lNode.nextNeighbor;
-            lNode.nextNeighbor.prevNeighbor = null;
+            lNode.nextDDL.prevDDL = null;
+            headOfList = lNode.nextDDL;
         } else {
-            lNode.nextNeighbor.prevNeighbor = lNode.prevNeighbor;
-            lNode.prevNeighbor.nextNeighbor = lNode.nextNeighbor;
+            lNode.nextDDL.prevDDL = lNode.prevDDL;
+            lNode.prevDDL.nextDDL = lNode.nextDDL;
         }
     }
 

@@ -70,7 +70,7 @@ public class DynamicGraph {
             edgeTail = newGraphEdge;
         }
 
-        from.NeighborsD.insert(to);
+        from.NeighborsD.insert(new DoublyNode(to));
         from.outDegree++;
         to.inDegree++;
 
@@ -97,7 +97,7 @@ public class DynamicGraph {
             edge.prev.updateNext(edge.next);
         }
 
-        edge.fromNode.NeighborsD.delete(edge.toNode);
+        edge.fromNode.NeighborsD.delete(edge.toNode);/////////////////בעיהההה
         edge.toNode.inDegree--;
         edge.fromNode.outDegree--;
     }
@@ -115,8 +115,8 @@ public class DynamicGraph {
     * shortest paths tree;
     * (uses Queue that we implemented in 2 bonus classes)  */
     public RootedTree bfs(GraphNode source){
-        Queue Q;
-        Q = bfs_initialization(source);
+        Queue Q = new Queue();
+        Q = bfs_initialization(Q, source);
 
         //while Q is not empty - keep going:
         // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
@@ -128,16 +128,17 @@ public class DynamicGraph {
 
             //while 'GraphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
             // take his first neighbor from the DDL
-            // בעיההההההההה אני רוצה להוציא את השכן כדי שבאיטרציה הבאה השכן השני יכנס אבל לא רוצה להרוס את הרשימה......
-            while (GraphNodeToTraverse.NeighborsD != null){
-                GraphNode GraphNeighbor = GraphNodeToTraverse.NeighborsD.headOfList;
+            DoublyNode GraphNeighbor = GraphNodeToTraverse.NeighborsD.headOfList;
+            while (GraphNeighbor != null){
 
-                if (GraphNeighbor.color == 0) {
-                    GraphNeighbor.color = 1;
-                    GraphNeighbor.distance = GraphNodeToTraverse.distance + 1;
-                    GraphNeighbor.pi = GraphNodeToTraverse.pi;
-                    Q.enqueue(new QueueNode(GraphNeighbor));
+                if (GraphNeighbor.value.color == 0) {
+                    GraphNeighbor.value.color = 1;
+                    GraphNeighbor.value.distance = GraphNodeToTraverse.distance + 1;
+                    GraphNeighbor.value.pi = GraphNodeToTraverse.pi;
+                    Q.enqueue(new QueueNode(GraphNeighbor.value));
                 }
+
+                GraphNeighbor = GraphNeighbor.nextDDL;
             }
             GraphNodeToTraverse.color = 2;
         }
@@ -153,31 +154,34 @@ public class DynamicGraph {
     }
 
     // O(N)
-    public Queue bfs_initialization(GraphNode source){
+    public Queue bfs_initialization(Queue Q, GraphNode source){
         GraphNode initialSource = source;
 
-        // O(N)
-        while (source.next != null){
-            node_initialize(source.next);
-            source = source.next;
-        }
-        node_initialize(nodeTail);
-
-        source = initialSource;
-
-        // O(N)
-        while (source.prev != null){
-            node_initialize(source.prev);;
-            source = source.prev;
-        }
-        node_initialize(nodeHead);
-
+        QueueNode q1 = new QueueNode(source);
+        Q.enqueue(q1);
         source.color = 1;
         source.distance = 0;
         source.pi = null;
 
-        Queue Q = new Queue(new QueueNode(source));
+        // O(N)
+        while (source != null){
+            node_initialize(source.next);
+            QueueNode q2 = new QueueNode(source.next);
+            Q.enqueue(q2);
+            source = source.next;
+        }
+
+
+        source = initialSource;
+        // O(N)
+        while (source != null){
+            node_initialize(source.prev);
+            QueueNode q3 = new QueueNode(source.prev);
+            Q.enqueue(q3);
+            source = source.prev;
+        }
 
         return Q;
     }
+
 }

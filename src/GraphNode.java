@@ -16,8 +16,6 @@ public class GraphNode {
 
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;
-    public GraphNode nextNeighbor = null;
-    public GraphNode prevNeighbor = null;
 
     // For the BFS
     public int color;
