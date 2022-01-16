@@ -70,7 +70,6 @@ public class DynamicGraph {
             edgeTail = newGraphEdge;
         }
 
-        from.NeighborsD.insert(new DoublyNode(to));
         from.outDegree++;
         to.inDegree++;
 
@@ -97,16 +96,32 @@ public class DynamicGraph {
             edge.prev.updateNext(edge.next);
         }
 
-        edge.fromNode.NeighborsD.delete(edge.toNode);/////////////////בעיהההה
         edge.toNode.inDegree--;
         edge.fromNode.outDegree--;
     }
+
+
+
+
+
+
+
+
 
     // Didn't worked on yet
     public RootedTree scc(){
         RootedTree arbitraryRootedTree = new RootedTree();
         return arbitraryRootedTree;
     }
+
+
+
+
+
+
+
+
+
 
     /* This function gets some GraphNode, which will be the source of the Rooted Graph 'bfsTree' rooted at source
     * the function will use the BFS algorithm to make sure that the RootedTree that returns from the function is:
@@ -118,6 +133,14 @@ public class DynamicGraph {
         Queue Q = new Queue();
         Q = bfs_initialization(Q, source);
 
+        //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
+        // O(E) * O(1)
+        GraphEdge tmp = new GraphEdge(edgeHead);
+        while (edgeHead != null){
+            tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
+            tmp = new GraphEdge(tmp.next);
+        }
+
         //while Q is not empty - keep going:
         // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
         while (Q.headOfQueue != null){
@@ -128,6 +151,7 @@ public class DynamicGraph {
 
             //while 'GraphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
             // take his first neighbor from the DDL
+
             DoublyNode GraphNeighbor = GraphNodeToTraverse.NeighborsD.headOfList;
             while (GraphNeighbor != null){
 
@@ -170,7 +194,6 @@ public class DynamicGraph {
             Q.enqueue(q2);
             source = source.next;
         }
-
 
         source = initialSource;
         // O(N)

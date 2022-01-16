@@ -19,6 +19,15 @@ public class GraphEdge {
         //toNode.inDegree += 1;
     }
 
+    // Help with copying and making adj list
+    public GraphEdge(GraphEdge graphEdgeToCopy){
+        if (graphEdgeToCopy.next != null){
+            this.next = graphEdgeToCopy.next;}
+        this.prev = graphEdgeToCopy.prev;
+        this.fromNode = graphEdgeToCopy.fromNode;
+        this.toNode = graphEdgeToCopy.toNode;
+    }
+
     /* This function will get some given exist edge and will update the 'next' field of "this.edge"
      * (means: the object that the function changes) to be the given edge  */
     public void updateNext(GraphEdge newNextEdge){
