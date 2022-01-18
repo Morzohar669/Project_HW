@@ -14,13 +14,14 @@ public class GraphNode {
     public GraphNode prev;
     private int key;
 
-    // For the DoublyLinkedList
-    public DoublyLinkedList NeighborsD;
-
     // For the BFS
     public int color;
-    public int distance;
+    public int distance; // Also the level of this node in a specific Rooted Tree
     public GraphNode pi;
+
+
+    // For the DoublyLinkedList
+    public DoublyLinkedList NeighborsD;
 
     public GraphNode(){
         this.key = 0;

@@ -21,11 +21,16 @@ public class GraphEdge {
 
     // Help with copying and making adj list
     public GraphEdge(GraphEdge graphEdgeToCopy){
-        if (graphEdgeToCopy.next != null){
-            this.next = graphEdgeToCopy.next;}
-        this.prev = graphEdgeToCopy.prev;
-        this.fromNode = graphEdgeToCopy.fromNode;
-        this.toNode = graphEdgeToCopy.toNode;
+        if (graphEdgeToCopy != null){
+            if (graphEdgeToCopy.next != null){
+                this.next = graphEdgeToCopy.next;
+            }
+            if (graphEdgeToCopy.prev != null) {
+                this.prev = graphEdgeToCopy.prev;
+            }
+            this.fromNode = graphEdgeToCopy.fromNode;
+            this.toNode = graphEdgeToCopy.toNode;
+        }
     }
 
     /* This function will get some given exist edge and will update the 'next' field of "this.edge"

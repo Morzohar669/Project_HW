@@ -15,15 +15,13 @@ public class DoublyLinkedList {
     }
 
     public void insert(DoublyNode lNode) {
-        if ((headOfList == null) && (tailOfList == null)) {
+        if(headOfList == null) {
             headOfList = lNode;
             tailOfList = lNode;
         } else {
             lNode.prevDDL = tailOfList;
-
-            tailOfList.nextDDL = lNode; /////////////////////////////////////////////////////
+            tailOfList.nextDDL = lNode;
             tailOfList = lNode;
-
         }
     }
 

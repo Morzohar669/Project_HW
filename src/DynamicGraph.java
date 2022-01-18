@@ -11,7 +11,7 @@ public class DynamicGraph {
     public GraphEdge edgeTail;
 
     // Constructor
-    public DynamicGraph(){
+    public DynamicGraph() {
         this.nodeHead = null;
         this.nodeTail = null;
         this.edgeHead = null;
@@ -19,10 +19,10 @@ public class DynamicGraph {
     }
 
     // Done for now, still O(1)
-    public GraphNode insertNode(int nodeKey){
+    public GraphNode insertNode(int nodeKey) {
         GraphNode newGraphNode = new GraphNode(nodeKey);
         // Still No Head
-        if ((nodeHead == null) && (nodeTail == null)){
+        if ((nodeHead == null) && (nodeTail == null)) {
             this.nodeHead = newGraphNode;
             this.nodeTail = newGraphNode;
         }
@@ -35,22 +35,19 @@ public class DynamicGraph {
         return newGraphNode;
     }
 
-    public void deleteNode(GraphNode node){
-        if (node.getInDegree() == 0 && node.getOutDegree() == 0){
+    public void deleteNode(GraphNode node) {
+        if (node.getInDegree() == 0 && node.getOutDegree() == 0) {
             // Delete the node from structure
-            if ((nodeHead == node) && (nodeTail == node)){
+            if ((nodeHead == node) && (nodeTail == node)) {
                 nodeHead = null;
                 nodeTail = null;
-            }
-            else if (nodeHead == node){
+            } else if (nodeHead == node) {
                 nodeHead = node.next;
                 node.next.prev = null;
-            }
-            else if (nodeTail == node){
+            } else if (nodeTail == node) {
                 nodeTail = node.prev;
                 node.prev.next = null;
-            }
-            else {
+            } else {
                 node.next.updatePrev(node.prev);
                 node.prev.updateNext(node.next);
             }
@@ -58,10 +55,10 @@ public class DynamicGraph {
     }
 
     // Done for now, still O(1)
-    public GraphEdge insertEdge(GraphNode from, GraphNode to){
+    public GraphEdge insertEdge(GraphNode from, GraphNode to) {
         GraphEdge newGraphEdge = new GraphEdge(from, to);
         // Still No Head
-        if ((edgeHead == null) && (edgeTail == null)){
+        if ((edgeHead == null) && (edgeTail == null)) {
             this.edgeHead = newGraphEdge;
             this.edgeTail = newGraphEdge;
         }
@@ -77,22 +74,19 @@ public class DynamicGraph {
         return newGraphEdge;
     }
 
-    public void deleteEdge(GraphEdge edge){
+    public void deleteEdge(GraphEdge edge) {
         // Delete the node from structure
-        if ((edgeHead == edge) && (edgeTail == edge)){
+        if ((edgeHead == edge) && (edgeTail == edge)) {
             this.edgeHead = null;
             this.edgeTail = null;
-        }
-        else if (edgeHead == edge){
+        } else if (edgeHead == edge) {
             this.edgeHead = edge.next;
             edge.next.prev = null;
 
-        }
-        else if (edgeTail == edge){
+        } else if (edgeTail == edge) {
             this.edgeTail = edge.prev;
             edge.prev.next = null;
-        }
-        else {
+        } else {
             edge.next.updatePrev(edge.prev);
             edge.prev.updateNext(edge.next);
         }
@@ -102,84 +96,107 @@ public class DynamicGraph {
     }
 
 
-
-
-
-
-
-
-
     // Didn't worked on yet
-    public RootedTree scc(){
+    public RootedTree scc() {
         RootedTree arbitraryRootedTree = new RootedTree();
         return arbitraryRootedTree;
     }
 
 
-
-
-
-
-
-
-
-
     /* This function gets some GraphNode, which will be the source of the Rooted Graph 'bfsTree' rooted at source
-    * the function will use the BFS algorithm to make sure that the RootedTree that returns from the function is:
-    * Rooted at source node
-    * runs at O(n+m) , n = total nodes, m = total edges;
-    * shortest paths tree;
-    * (uses Queue that we implemented in 2 bonus classes)  */
-    public RootedTree bfs(GraphNode source){
+     * the function will use the BFS algorithm to make sure that the RootedTree that returns from the function is:
+     * Rooted at source node
+     * runs at O(n+m) , n = total nodes, m = total edges;
+     * shortest paths tree;
+     * (uses Queue that we implemented in 2 bonus classes)  */
+    public RootedTree bfs(GraphNode source) {
+        TreeNode treeSource = new TreeNode(source);
+        RootedTree bfsTree = new RootedTree(treeSource);
+
         Queue Q = new Queue();
         Q = bfs_initialization(Q, source);
 
         //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
         // O(E) * O(1)
-        GraphEdge tmp = new GraphEdge(edgeTail);
-        while (edgeTail != null){
-            tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
-            tmp = new GraphEdge(tmp.prev);
+        if (edgeTail != null) {
+            GraphEdge tmp = new GraphEdge(edgeTail);
+            while ((edgeTail != null) && (tmp.fromNode != null)) {
+                tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
+                tmp = new GraphEdge(tmp.prev);
+            }
         }
+
+        //new obj that will hold the most right node of this level
+        TreeNode rightMostNode = treeSource;
 
         //while Q is not empty - keep going:
         // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
-        while (Q.headOfQueue != null){
-            QueueNode QueueNodeToTraverse = Q.headOfQueue;
-            GraphNode GraphNodeToTraverse = QueueNodeToTraverse.value;
+        while (Q.headOfQueue != null) {
+            QueueNode queueNodeToTraverse = Q.headOfQueue;
+            GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
 
             Q.dequeue();
 
-            //while 'GraphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
+            //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
             // take his first neighbor from the DDL
+            if (graphNodeToTraverse.NeighborsD.headOfList != null) {
+                DoublyNode GraphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
 
-            DoublyNode GraphNeighbor = GraphNodeToTraverse.NeighborsD.headOfList;
-            while (GraphNeighbor != null){
+                TreeNode treeNodeNodeToTraverse;
+                TreeNode treeRepOfNeighbor = new TreeNode(GraphNeighbor.value);
 
-                if (GraphNeighbor.value.color == 0) {
-                    GraphNeighbor.value.color = 1;
-                    GraphNeighbor.value.distance = GraphNodeToTraverse.distance + 1;
-                    GraphNeighbor.value.pi = GraphNodeToTraverse; //אולי בעיה עם ערך NULL
-                    Q.enqueue(new QueueNode(GraphNeighbor.value));
+                //every node in the tree will get only 1 left son
+                if (graphNodeToTraverse == source) {
+                    treeNodeNodeToTraverse = treeSource;
+                } else {
+                    treeNodeNodeToTraverse = new TreeNode(graphNodeToTraverse);
                 }
+                treeNodeNodeToTraverse.leftSon = treeRepOfNeighbor;
 
-                GraphNeighbor = GraphNeighbor.nextDDL;
+                while (GraphNeighbor != null) {
+
+
+                    ////////////// הבעיה זה שאנחנו מאבדים את האח הימני איפשהו בדרך.. תוך כדי דיבאג הכל עובד אבל בזמן ההדפסה הצמתים של TREENODE לא באמת יודעים מי האח הימני שלהם.
+                    // משמע צריך לדבג פה באיזור הזה כשאתה ערני. לבדוק איפה זה נעלם, רמז: יש דריסה של הצומת ביצצוג TREENODE איפשהו כאנחנו עושים new
+                    treeRepOfNeighbor = new TreeNode(treeRepOfNeighbor.rightSibling);
+
+                    //update right sibling of curr node.
+                    if (GraphNeighbor.nextDDL != null){
+                        treeRepOfNeighbor.rightSibling = new TreeNode(GraphNeighbor.nextDDL.value);
+                    }else {
+                        treeRepOfNeighbor.rightSibling = null;
+                    }
+
+                    if (GraphNeighbor.value.color == 0) {
+                        GraphNeighbor.value.color = 1;
+                        GraphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
+                        GraphNeighbor.value.pi = graphNodeToTraverse;
+
+                        Q.enqueue(new QueueNode(GraphNeighbor.value));
+
+                        //update right most
+                        rightMostNode = treeRepOfNeighbor;
+
+                    }
+                    GraphNeighbor = GraphNeighbor.nextDDL;
+                }
             }
-            GraphNodeToTraverse.color = 2;
+            graphNodeToTraverse.color = 2;
         }
 
-        return new RootedTree();
+        return bfsTree;
     }
+
 
     //O(1)
     public void node_initialize(GraphNode node) {
         node.color = 0;
-        node.distance = 100000000;
+        node.distance = -1;
         node.pi = null;
     }
 
     // O(N)
-    public Queue bfs_initialization(Queue Q, GraphNode source){
+    public Queue bfs_initialization(Queue Q, GraphNode source) {
         GraphNode initialSource = source;
 
         QueueNode q1 = new QueueNode(source);
@@ -189,21 +206,19 @@ public class DynamicGraph {
         source.pi = null;
 
         // O(N)
-        while (source != null){
+        while (source.next != null) {
             node_initialize(source.next);
-            QueueNode q2 = new QueueNode(source.next);
-            Q.enqueue(q2);
             source = source.next;
         }
+        node_initialize(nodeTail);
 
         source = initialSource;
         // O(N)
-        while (source != null){
+        while (source.prev != null) {
             node_initialize(source.prev);
-            QueueNode q3 = new QueueNode(source.prev);
-            Q.enqueue(q3);
             source = source.prev;
         }
+        node_initialize(nodeHead);
 
         return Q;
     }

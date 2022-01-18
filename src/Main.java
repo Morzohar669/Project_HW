@@ -1,5 +1,9 @@
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DynamicGraph dynGraph = new DynamicGraph();
 
         System.out.println("\n1). all null " +
@@ -39,7 +43,22 @@ class Main {
         System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
         System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
-        print_adj(dynGraph, i1);
+//        print_adj(dynGraph, i1);
+
+
+        RootedTree rt2;
+        rt2 = dynGraph.bfs(i1);
+
+        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Desktop\\test.txt");
+             DataOutputStream dOut = new DataOutputStream(fOut);)
+        {
+            rt2.printByLayer(dOut);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+
 
         System.out.println("\n ------------------------- \n");
 
@@ -111,23 +130,24 @@ class Main {
     }
 
     public static void print_adj(DynamicGraph dynGraph, GraphNode node){
-        System.out.println("\nadj test, print all adj of node 'i1':");
 
-        if (dynGraph.nodeHead != null && dynGraph.edgeHead != null) {
-            GraphEdge tmp = new GraphEdge(dynGraph.edgeTail);
+        System.out.println("hey Y.V.");
 
-            while (dynGraph.edgeTail != null) {
-                if (tmp.prev != null) {
-                    tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
-                    tmp = new GraphEdge(tmp.prev);
-                }
-                else {break;}
-            }
-        }
-        while (node.NeighborsD.tailOfList != null) {
-            System.out.printf("%d ,", node.NeighborsD.tailOfList.value.getKey());
-            node.NeighborsD.tailOfList = node.NeighborsD.tailOfList.prevDDL;
-        }
-        return;
+//        System.out.println("\nadj test, print all adj of node 'i1':");
+//
+//        if (dynGraph.edgeTail != null) {
+//            GraphEdge tmp = new GraphEdge(dynGraph.edgeTail);
+//            while (dynGraph.edgeTail != null) {
+//                tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
+//                tmp = new GraphEdge(tmp.prev);
+//            }
+//
+//        while (node.NeighborsD.headOfList != null) {
+//            System.out.printf("%d", node.NeighborsD.headOfList.value.getKey());
+//            node.NeighborsD.headOfList = node.NeighborsD.headOfList.nextDDL;
+//        }
+//
+//
+//        }
     }
 }
