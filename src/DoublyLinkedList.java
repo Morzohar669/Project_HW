@@ -9,19 +9,21 @@ public class DoublyLinkedList {
         tailOfList = null;
     }
 
-    public DoublyLinkedList(DoublyNode head){
-        this.headOfList = head;
-        this.tailOfList = head;
+    public DoublyLinkedList(DoublyNode dNode){
+        this.headOfList = dNode;
+        this.tailOfList = dNode;
     }
 
     public void insert(DoublyNode lNode) {
-        if (headOfList == null) {
+        if ((headOfList == null) && (tailOfList == null)) {
             headOfList = lNode;
             tailOfList = lNode;
         } else {
-            tailOfList.nextDDL = lNode;
             lNode.prevDDL = tailOfList;
+
+            tailOfList.nextDDL = lNode; /////////////////////////////////////////////////////
             tailOfList = lNode;
+
         }
     }
 

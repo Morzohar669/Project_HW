@@ -8,7 +8,6 @@ class Main {
         System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
         System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
         System.out.printf("the node tail is: %x\n", dynGraph.nodeHead);
-        print_adj(dynGraph);
 
         System.out.println("\n ------------------------- \n");
 
@@ -22,10 +21,8 @@ class Main {
                 "\n");
         System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
         System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
-
-        print_adj(dynGraph);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
         System.out.println("\n ------------------------- \n");
 
@@ -37,12 +34,12 @@ class Main {
         System.out.println("\n3). 1 should be node head -5 should be tail" +
                 "\n 1-2 should be head edge, 2-1 should be tail edge " +
                 "\n");
-        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
-        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.getKey(), dynGraph.edgeHead.toNode.getKey());
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.getKey(), dynGraph.edgeTail.toNode.getKey());
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
-        print_adj(dynGraph);
+        print_adj(dynGraph, i1);
 
         System.out.println("\n ------------------------- \n");
 
@@ -53,12 +50,12 @@ class Main {
                 "\n1 should be node head -5 should be tail" +
                 "\n 1-0 should be head edge, 1-(-5) should be tail edge " +
                 "\n");
-        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
-        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.getKey(), dynGraph.edgeHead.toNode.getKey());
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.getKey(), dynGraph.edgeTail.toNode.getKey());
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
-        print_adj(dynGraph);
+        print_adj(dynGraph, i1);
 
         System.out.println("\n ------------------------- \n");
 
@@ -69,12 +66,12 @@ class Main {
                 "\n1 should be node head -5 should be tail" +
                 "\n 1-0 should be head edge, 1-(-5) should be tail edge " +
                 "\n");
-        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.key, dynGraph.edgeHead.toNode.key);
-        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.key, dynGraph.edgeTail.toNode.key);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
+        System.out.printf("the edge head is: (from: %d) --> (to: %d) \n ", dynGraph.edgeHead.fromNode.getKey(), dynGraph.edgeHead.toNode.getKey());
+        System.out.printf("the edge tail is: (from: %d) --> (to: %d) \n", dynGraph.edgeTail.fromNode.getKey(), dynGraph.edgeTail.toNode.getKey());
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
-        print_adj(dynGraph);
+        print_adj(dynGraph, i1);
 
         System.out.println("\n ------------------------- \n");
 
@@ -87,10 +84,10 @@ class Main {
                 "\n");
         System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
         System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.key);
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.key);
+        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
-        print_adj(dynGraph);
+        print_adj(dynGraph, i1);
 
         System.out.println("\n ------------------------- \n");
 
@@ -107,35 +104,30 @@ class Main {
         System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
         System.out.printf("the node tail is: %x\n", dynGraph.nodeTail);
 
-        print_adj(dynGraph);
+        print_adj(dynGraph, i1);
 
         System.out.println("\n ------------------------- \n");
 
     }
 
-    public static void print_adj(DynamicGraph dynGraph){
+    public static void print_adj(DynamicGraph dynGraph, GraphNode node){
         System.out.println("\nadj test, print all adj of node 'i1':");
 
         if (dynGraph.nodeHead != null && dynGraph.edgeHead != null) {
-            GraphEdge tmp = new GraphEdge(dynGraph.edgeHead);
+            GraphEdge tmp = new GraphEdge(dynGraph.edgeTail);
 
-            while (dynGraph.edgeHead != null) {
-                if (tmp.next != null) {
+            while (dynGraph.edgeTail != null) {
+                if (tmp.prev != null) {
                     tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
-                    System.out.printf("%d ,", tmp.toNode.key);
-                    tmp = new GraphEdge(tmp.next);
+                    tmp = new GraphEdge(tmp.prev);
                 }
                 else {break;}
             }
         }
-
-//        while (dynGraph.nodeHead != null && dynGraph.edgeHead != null) {
-//            if (dynGraph.nodeHead.NeighborsD.headOfList != null) {
-//                System.out.printf("%d ,", dynGraph.nodeHead.NeighborsD.headOfList.nextDDL.value.key);
-//                dynGraph.nodeHead.NeighborsD.headOfList = dynGraph.nodeHead.NeighborsD.headOfList.nextDDL;
-//            }
-//            else {break;}
-//        }
+        while (node.NeighborsD.tailOfList != null) {
+            System.out.printf("%d ,", node.NeighborsD.tailOfList.value.getKey());
+            node.NeighborsD.tailOfList = node.NeighborsD.tailOfList.prevDDL;
+        }
         return;
     }
 }

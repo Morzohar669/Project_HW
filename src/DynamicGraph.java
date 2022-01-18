@@ -28,8 +28,8 @@ public class DynamicGraph {
         }
         // there is a head that means that there is also a tail
         else if ((nodeHead != null) && nodeTail != null) {
-            nodeTail.updateNext(newGraphNode);
-            newGraphNode.updatePrev(nodeTail);
+            nodeTail.next = newGraphNode;
+            newGraphNode.prev = nodeTail;
             nodeTail = newGraphNode;
         }
         return newGraphNode;
@@ -44,9 +44,11 @@ public class DynamicGraph {
             }
             else if (nodeHead == node){
                 nodeHead = node.next;
+                node.next.prev = null;
             }
             else if (nodeTail == node){
                 nodeTail = node.prev;
+                node.prev.next = null;
             }
             else {
                 node.next.updatePrev(node.prev);
@@ -69,7 +71,6 @@ public class DynamicGraph {
             newGraphEdge.updatePrev(edgeTail);
             edgeTail = newGraphEdge;
         }
-
         from.outDegree++;
         to.inDegree++;
 
@@ -135,10 +136,10 @@ public class DynamicGraph {
 
         //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
         // O(E) * O(1)
-        GraphEdge tmp = new GraphEdge(edgeHead);
-        while (edgeHead != null){
+        GraphEdge tmp = new GraphEdge(edgeTail);
+        while (edgeTail != null){
             tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
-            tmp = new GraphEdge(tmp.next);
+            tmp = new GraphEdge(tmp.prev);
         }
 
         //while Q is not empty - keep going:
@@ -158,7 +159,7 @@ public class DynamicGraph {
                 if (GraphNeighbor.value.color == 0) {
                     GraphNeighbor.value.color = 1;
                     GraphNeighbor.value.distance = GraphNodeToTraverse.distance + 1;
-                    GraphNeighbor.value.pi = GraphNodeToTraverse.pi;
+                    GraphNeighbor.value.pi = GraphNodeToTraverse; //אולי בעיה עם ערך NULL
                     Q.enqueue(new QueueNode(GraphNeighbor.value));
                 }
 
@@ -206,5 +207,4 @@ public class DynamicGraph {
 
         return Q;
     }
-
 }

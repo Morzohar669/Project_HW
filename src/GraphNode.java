@@ -12,7 +12,7 @@ public class GraphNode {
     // For the DynamicGraph
     public GraphNode next;
     public GraphNode prev;
-    public int key;
+    private int key;
 
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;
@@ -44,6 +44,10 @@ public class GraphNode {
     /* This function find the in-degree of a given Node (n) in a given Graph (G) */
     public int getInDegree() {
         return inDegree;
+    }
+
+    public int getKey() {
+        return key;
     }
 
     /* This function will get some given exist node and will update the 'next' field of "this.node"
