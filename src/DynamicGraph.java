@@ -127,58 +127,64 @@ public class DynamicGraph {
         }
 
         //new obj that will hold the most right node of this level
-        TreeNode rightMostNode = treeSource;
+        TreeNode rightMostNode;
 
         //while Q is not empty - keep going:
         // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
         while (Q.headOfQueue != null) {
             QueueNode queueNodeToTraverse = Q.headOfQueue;
             GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
+            // make a new 'treeNodeToTraverse' holder of type treeNode for the right 'graphNodeToTraverse'
+            TreeNode treeNodeToTraverse;
+            if (graphNodeToTraverse == source) {
+                treeNodeToTraverse = treeSource;
+            } else {
+                treeNodeToTraverse = new TreeNode(graphNodeToTraverse);
+            }
 
             Q.dequeue();
 
             //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
             // take his first neighbor from the DDL
             if (graphNodeToTraverse.NeighborsD.headOfList != null) {
-                DoublyNode GraphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
 
-                TreeNode treeNodeNodeToTraverse;
-                TreeNode treeRepOfNeighbor = new TreeNode(GraphNeighbor.value);
-
-                //every node in the tree will get only 1 left son
-                if (graphNodeToTraverse == source) {
-                    treeNodeNodeToTraverse = treeSource;
-                } else {
-                    treeNodeNodeToTraverse = new TreeNode(graphNodeToTraverse);
-                }
-                treeNodeNodeToTraverse.leftSon = treeRepOfNeighbor;
-
-                while (GraphNeighbor != null) {
+                //make a ddl node pointer and new tree node out of the first most left neighbor
+                DoublyNode graphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
+                TreeNode treeNeighbor = new TreeNode(graphNeighbor.value);
 
 
-                    ////////////// הבעיה זה שאנחנו מאבדים את האח הימני איפשהו בדרך.. תוך כדי דיבאג הכל עובד אבל בזמן ההדפסה הצמתים של TREENODE לא באמת יודעים מי האח הימני שלהם.
-                    // משמע צריך לדבג פה באיזור הזה כשאתה ערני. לבדוק איפה זה נעלם, רמז: יש דריסה של הצומת ביצצוג TREENODE איפשהו כאנחנו עושים new
-                    treeRepOfNeighbor = new TreeNode(treeRepOfNeighbor.rightSibling);
+                int flag = 1;
+                while (graphNeighbor != null) {
 
-                    //update right sibling of curr node.
-                    if (GraphNeighbor.nextDDL != null){
-                        treeRepOfNeighbor.rightSibling = new TreeNode(GraphNeighbor.nextDDL.value);
-                    }else {
-                        treeRepOfNeighbor.rightSibling = null;
-                    }
+                    rightMostNode = treeNeighbor;
 
-                    if (GraphNeighbor.value.color == 0) {
-                        GraphNeighbor.value.color = 1;
-                        GraphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
-                        GraphNeighbor.value.pi = graphNodeToTraverse;
+//                    ////////////// הבעיה זה שאנחנו מאבדים את האח הימני איפשהו בדרך.. תוך כדי דיבאג הכל עובד אבל בזמן ההדפסה הצמתים של TREENODE לא באמת יודעים מי האח הימני שלהם.
+//                    // משמע צריך לדבג פה באיזור הזה כשאתה ערני. לבדוק איפה זה נעלם, רמז: יש דריסה של הצומת ביצצוג TREENODE איפשהו כאנחנו עושים new
 
-                        Q.enqueue(new QueueNode(GraphNeighbor.value));
+                    if (graphNeighbor.value.color == 0) {
 
-                        //update right most
-                        rightMostNode = treeRepOfNeighbor;
+                        if (flag == 1){
+                            treeNodeToTraverse.leftSon = treeNeighbor;
+                            flag = 0;
+                        }
+
+                        graphNeighbor.value.color = 1;
+                        graphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
+                        graphNeighbor.value.pi = graphNodeToTraverse;
+
+                        Q.enqueue(new QueueNode(graphNeighbor.value));
 
                     }
-                    GraphNeighbor = GraphNeighbor.nextDDL;
+                    // go to next neighbor
+                    if (graphNeighbor.nextDDL != null) {
+                        //update right sibling of curr node.
+                        treeNeighbor.rightSibling = new TreeNode(graphNeighbor.nextDDL.value);
+                        treeNeighbor = treeNeighbor.rightSibling;
+                        graphNeighbor = graphNeighbor.nextDDL;
+                    } else {
+                        treeNeighbor.rightSibling = null;
+                        break;
+                    }
                 }
             }
             graphNodeToTraverse.color = 2;

@@ -49,7 +49,7 @@ class Main {
         RootedTree rt2;
         rt2 = dynGraph.bfs(i1);
 
-        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Desktop\\test.txt");
+        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test.txt");
              DataOutputStream dOut = new DataOutputStream(fOut);)
         {
             rt2.printByLayer(dOut);

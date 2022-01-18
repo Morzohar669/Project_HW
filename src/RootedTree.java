@@ -22,8 +22,7 @@ public class RootedTree {
         TreeNode treeNodeToPrint = root;
 
         // print...
-//        out.writeInt(treeNodeToPrint.value.getKey());
-        out.writeUTF(Integer.toString(treeNodeToPrint.value.getKey()));
+        out.writeInt(treeNodeToPrint.value.getKey());
 
         // logic
         treeNodeToPrint = treeNodeToPrint.leftSon;
@@ -33,14 +32,15 @@ public class RootedTree {
             TreeNode tmp = new TreeNode(treeNodeToPrint);
 
             //print...
-//            out.writeInt(treeNodeToPrint.value.getKey());
-            out.writeUTF(Integer.toString(treeNodeToPrint.value.getKey()));
+            out.writeInt(treeNodeToPrint.value.getKey());
+
 
             while (treeNodeToPrint.rightSibling != null) {
 
                 //print...
-//                out.writeInt(treeNodeToPrint.rightSibling.value.getKey());
-                out.writeUTF(Integer.toString(treeNodeToPrint.value.getKey()));
+                out.writeUTF(",");
+                out.writeInt(treeNodeToPrint.rightSibling.value.getKey());
+
 
                 // logic
                 treeNodeToPrint = treeNodeToPrint.rightSibling;
