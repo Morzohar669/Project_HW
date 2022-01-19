@@ -24,6 +24,9 @@ public class RootedTree {
         // print...
         out.writeInt(treeNodeToPrint.value.getKey());
 
+        //test
+        System.out.printf("%s \n", String.valueOf(treeNodeToPrint.value.getKey()));
+
         // logic
         treeNodeToPrint = treeNodeToPrint.leftSon;
 
@@ -34,12 +37,19 @@ public class RootedTree {
             //print...
             out.writeInt(treeNodeToPrint.value.getKey());
 
+            //test
+            System.out.printf("%s", String.valueOf(treeNodeToPrint.value.getKey()));
+
 
             while (treeNodeToPrint.rightSibling != null) {
 
                 //print...
                 out.writeUTF(",");
                 out.writeInt(treeNodeToPrint.rightSibling.value.getKey());
+
+                //test
+                System.out.printf(",");
+                System.out.printf("%s", String.valueOf(treeNodeToPrint.rightSibling.value.getKey()));
 
 
                 // logic
@@ -49,6 +59,10 @@ public class RootedTree {
             // logic
             treeNodeToPrint = tmp;
             treeNodeToPrint = treeNodeToPrint.leftSon;
+
+            // test
+            System.out.printf("");
+
 
         }
     }

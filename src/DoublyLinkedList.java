@@ -4,6 +4,10 @@ public class DoublyLinkedList {
     DoublyNode headOfList;
     DoublyNode tailOfList;
 
+    public DoublyLinkedList nextDDLL  = null;
+    public DoublyLinkedList prevDDLL  = null;
+
+
     public DoublyLinkedList(){
         headOfList = null;
         tailOfList = null;

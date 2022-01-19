@@ -19,6 +19,8 @@ public class GraphNode {
     public int distance; // Also the level of this node in a specific Rooted Tree
     public GraphNode pi;
 
+    // For DFS
+    public int f;
 
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;
@@ -35,6 +37,15 @@ public class GraphNode {
         this.inDegree = 0;
         this.outDegree = 0;
         this.NeighborsD = new DoublyLinkedList();
+    }
+
+    public GraphNode(GraphNode copy){
+        this.key = copy.key;
+        this.inDegree = copy.inDegree;
+        this.outDegree = copy.outDegree;
+        this.next = copy.next;
+        this.prev = copy.prev;
+        this.NeighborsD = copy.NeighborsD;
     }
 
     /* This function find the out-degree of a given Node (n) in a given Graph (G) */
