@@ -1,6 +1,4 @@
 public class TreeNode {
-    // For the BFS
-//    public int level; // Also the level of this node in a specific Rooted Tree
     public TreeNode leftSon;
     public TreeNode rightSibling;
 
@@ -19,3 +17,5 @@ public class TreeNode {
     }
 
 }
+
+///////////////////////מחלקה לפח!!!!!

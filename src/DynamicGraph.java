@@ -298,10 +298,8 @@ public class DynamicGraph<build_Transpose> {
      * (uses Queue that we implemented in 2 bonus classes)  */
     public RootedTree bfs(GraphNode source) {
 
-        TreeNode treeSource = new TreeNode(source);
-        RootedTree bfsTree = new RootedTree(treeSource);
-        TreeNode rightMostNode = treeSource;
-
+        RootedTree bfsTree = new RootedTree(source);
+        GraphNode rightMostNode = source;
         Queue Q = new Queue();
         Q = bfs_initialization(Q, source);
 
@@ -317,22 +315,12 @@ public class DynamicGraph<build_Transpose> {
                 QueueNode queueNodeToTraverse = Q.headOfQueue;
                 GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
 
-                // make a new 'treeNodeToTraverse' holder of type treeNode for the right 'graphNodeToTraverse'
-                TreeNode treeNodeToTraverse;
-                if (graphNodeToTraverse == source) {
-                    treeNodeToTraverse = treeSource;
-                } else {
-                    treeNodeToTraverse = new TreeNode(graphNodeToTraverse);
-                }
-
                 //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
                 if (graphNodeToTraverse.NeighborsD.headOfList != null) {
                     //make a ddl node pointer and new tree node out of the first most left neighbor
                     DoublyNode graphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
                     //flag for check if lest son
                     int flag = 1;
-
-                    TreeNode treeNeighbor;
 
                     while (graphNeighbor != null) {
 
@@ -342,31 +330,26 @@ public class DynamicGraph<build_Transpose> {
                             graphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
                             graphNeighbor.value.pi = graphNodeToTraverse;
 
-                            // make new treeNode
-
-                            treeNeighbor = new TreeNode(graphNeighbor.value);//////////////////////////////////////////
-
-
                             // insert Queue
                             Q.enqueue(new QueueNode(graphNeighbor.value));
 
                             //new tree node that will hold the most right node of this level
                             if (flag == 1) {
-                                if(treeNeighbor.value.distance == rightMostNode.value.distance) {
-                                    treeNeighbor.rightSibling = rightMostNode;
+                                if(rightMostNode.distance == graphNeighbor.value.distance) {
+                                    rightMostNode.rightSibling = graphNeighbor.value;
                                 }
-                                rightMostNode = treeNeighbor;
+                                rightMostNode = graphNeighbor.value;
                             }
 
                             // update right sibling
                             if(flag == 0) {
-                                rightMostNode.rightSibling = treeNeighbor;
-                                rightMostNode = treeNeighbor;
+                                rightMostNode.rightSibling = graphNeighbor.value;
+                                rightMostNode = graphNeighbor.value;
                             }
 
                             // make left son from first neighbor only
                             if(flag == 1) {
-                                treeNodeToTraverse.leftSon = treeNeighbor;
+                                graphNodeToTraverse.leftSon = graphNeighbor.value;
                                 flag = 0;
                             }
 

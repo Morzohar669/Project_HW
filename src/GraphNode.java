@@ -22,6 +22,10 @@ public class GraphNode {
     // For DFS
     public int f;
 
+    // For Trees
+    public GraphNode leftSon;
+    public GraphNode rightSibling;
+
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;
 
@@ -46,6 +50,8 @@ public class GraphNode {
         this.next = copy.next;
         this.prev = copy.prev;
         this.NeighborsD = copy.NeighborsD;
+        this.leftSon = copy.leftSon;
+        this.rightSibling = copy.rightSibling;
     }
 
     /* This function find the out-degree of a given Node (n) in a given Graph (G) */
