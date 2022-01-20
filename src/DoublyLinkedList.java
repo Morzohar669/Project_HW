@@ -7,7 +7,6 @@ public class DoublyLinkedList {
     public DoublyLinkedList nextDDLL  = null;
     public DoublyLinkedList prevDDLL  = null;
 
-
     public DoublyLinkedList(){
         headOfList = null;
         tailOfList = null;

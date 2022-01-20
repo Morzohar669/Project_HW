@@ -63,7 +63,6 @@ public class RootedTree {
             // test
             System.out.printf("");
 
-
         }
     }
 

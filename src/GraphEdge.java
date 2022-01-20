@@ -14,24 +14,16 @@ public class GraphEdge {
     // To make sure a edge meet our definition this will be the only way to make a new edge (e)
     public GraphEdge(GraphNode fromNode, GraphNode toNode){
         this.fromNode = fromNode;
-        //fromNode.outDegree += 1;
         this.toNode = toNode;
-        //toNode.inDegree += 1;
     }
 
     // Help with copying and making adj list
-    public GraphEdge(GraphEdge graphEdgeToCopy){
-        if (graphEdgeToCopy != null){
-            if (graphEdgeToCopy.next != null){
-                this.next = graphEdgeToCopy.next;
-            }
-            if (graphEdgeToCopy.prev != null) {
-                this.prev = graphEdgeToCopy.prev;
-            }
-            this.fromNode = graphEdgeToCopy.fromNode;
-            this.toNode = graphEdgeToCopy.toNode;
+    public GraphEdge(GraphEdge copy){
+        this.next = copy.next;
+        this.prev = copy.prev;
+        this.fromNode = copy.fromNode;
+        this.toNode = copy.toNode;
         }
-    }
 
     /* This function will get some given exist edge and will update the 'next' field of "this.edge"
      * (means: the object that the function changes) to be the given edge  */

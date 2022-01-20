@@ -65,14 +65,14 @@ public class DynamicGraph<build_Transpose> {
     public GraphEdge insertEdge(GraphNode from, GraphNode to) {
         GraphEdge newGraphEdge = new GraphEdge(from, to);
         // Still No Head
-        if ((edgeHead == null) && (edgeTail == null)) {
+        if (edgeHead == null) {
             this.edgeHead = newGraphEdge;
             this.edgeTail = newGraphEdge;
         }
         // there is a head that means that there is also a tail
-        else if ((edgeHead != null) && nodeTail != null) {
-            edgeTail.updateNext(newGraphEdge);
-            newGraphEdge.updatePrev(edgeTail);
+        else {
+            edgeTail.next = newGraphEdge;
+            newGraphEdge.prev = edgeTail;
             edgeTail = newGraphEdge;
         }
         from.outDegree++;
@@ -102,8 +102,7 @@ public class DynamicGraph<build_Transpose> {
         edge.fromNode.outDegree--;
     }
 
-
-    public Stack dfs(){
+    public Stack dfs() {
         //init
         GraphNode tmp = nodeHead;
         if (nodeHead != null) {
@@ -127,15 +126,17 @@ public class DynamicGraph<build_Transpose> {
                 adj.fromNode.NeighborsD.insert(new DoublyNode(adj.toNode));
                 if (adj.prev != null) {
                     adj = adj.prev;
-                } else {break;}
+                } else {
+                    break;
+                }
             }
         }
 
         //Traverse
         Stack stack = new Stack();
         GraphNode pointer = nodeTail;
-        while (pointer != null){ // there is still nodes
-            if (pointer.color == 0){
+        while (pointer != null) { // there is still nodes
+            if (pointer.color == 0) {
                 dfs_Visit(pointer, time, stack);
                 pointer = pointer.prev;
             }
@@ -143,27 +144,26 @@ public class DynamicGraph<build_Transpose> {
         return stack;
     }
 
-
-    public void dfs_Visit(GraphNode nodeToCheck, int time, Stack stack){
+    public void dfs_Visit(GraphNode nodeToCheck, int time, Stack stack) {
         time++;
         nodeToCheck.distance = time;
         nodeToCheck.color = 1;
 
-        if (nodeToCheck.NeighborsD.headOfList != null){
-        GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
-        while (tmp != null){ //there are still neighbors
-            if (tmp.color == 0){
-                tmp.pi = nodeToCheck;
-                dfs_Visit(tmp, time, stack);
-            }
+        if (nodeToCheck.NeighborsD.headOfList != null) {
+            GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
+            while (tmp != null) { //there are still neighbors
+                if (tmp.color == 0) {
+                    tmp.pi = nodeToCheck;
+                    dfs_Visit(tmp, time, stack);
+                }
 
 
-            if (tmp.next != null) {
-                tmp = new GraphNode(tmp.next);
-            } else {
-                break;
+                if (tmp.next != null) {
+                    tmp = new GraphNode(tmp.next);
+                } else {
+                    break;
+                }
             }
-        }
         }
 
         stack.push(new DoublyNode(nodeToCheck));
@@ -172,8 +172,7 @@ public class DynamicGraph<build_Transpose> {
         nodeToCheck.f = time;
     }
 
-
-    public DynamicGraph buildTranspose(){
+    public DynamicGraph buildTranspose() {
         DynamicGraph graphTranspose = new DynamicGraph();
         graphTranspose.nodeHead = this.nodeHead;
         graphTranspose.nodeTail = this.nodeTail;
@@ -181,7 +180,7 @@ public class DynamicGraph<build_Transpose> {
         graphTranspose.edgeHead = this.edgeHead;
 
         GraphEdge tmp = new GraphEdge(graphTranspose.edgeHead);
-        while (graphTranspose.edgeHead != null){
+        while (graphTranspose.edgeHead != null) {
             GraphNode node = edgeHead.toNode;
             edgeHead.toNode = edgeHead.fromNode;
             edgeHead.fromNode = node;
@@ -195,7 +194,6 @@ public class DynamicGraph<build_Transpose> {
 
         return graphTranspose;
     }
-
 
     public DDLofDDL dfs2(Stack stack, DynamicGraph graphTranspose) {
 
@@ -239,14 +237,14 @@ public class DynamicGraph<build_Transpose> {
         return scc;
     }
 
-    public void dfs_Visit2(GraphNode nodeToCheck, int time, Stack stack, DDLofDDL scc, DoublyLinkedList oneConnected){
+    public void dfs_Visit2(GraphNode nodeToCheck, int time, Stack stack, DDLofDDL scc, DoublyLinkedList oneConnected) {
         time++;
         nodeToCheck.distance = time;
         nodeToCheck.color = 1;
 
         GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
-        while (tmp != null){ //there are still neighbors
-            if (tmp.color == 0){
+        while (tmp != null) { //there are still neighbors
+            if (tmp.color == 0) {
                 oneConnected.insert(new DoublyNode(nodeToCheck));
                 tmp.pi = nodeToCheck;
                 dfs_Visit2(tmp, time, stack, scc, oneConnected);
@@ -265,14 +263,10 @@ public class DynamicGraph<build_Transpose> {
         nodeToCheck.f = time;
     }
 
-
-
-
-
     public RootedTree scc() {
         Stack stack = dfs();
 
-        DynamicGraph gTranspose =  buildTranspose();
+        DynamicGraph gTranspose = buildTranspose();
 
         DDLofDDL scc = dfs2(stack, gTranspose);
 
@@ -280,9 +274,21 @@ public class DynamicGraph<build_Transpose> {
         return new RootedTree();
     }
 
+    public void initNeighbors() {
+        //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
+        // O(E) * O(1)
+        if (edgeTail != null) {
 
+            GraphEdge tmp = new GraphEdge(edgeTail);
+            while (true) {
+                tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
 
-
+                if (tmp.prev != null) {
+                    tmp = tmp.prev;
+                } else return;
+            }
+        }
+    }
 
     /* This function gets some GraphNode, which will be the source of the Rooted Graph 'bfsTree' rooted at source
      * the function will use the BFS algorithm to make sure that the RootedTree that returns from the function is:
@@ -291,85 +297,95 @@ public class DynamicGraph<build_Transpose> {
      * shortest paths tree;
      * (uses Queue that we implemented in 2 bonus classes)  */
     public RootedTree bfs(GraphNode source) {
+
         TreeNode treeSource = new TreeNode(source);
         RootedTree bfsTree = new RootedTree(treeSource);
+        TreeNode rightMostNode = treeSource;
 
         Queue Q = new Queue();
         Q = bfs_initialization(Q, source);
 
-        //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
-        // O(E) * O(1)
-        if (edgeTail != null) {
-            GraphEdge tmp = new GraphEdge(edgeTail);
-            while ((edgeTail != null) && (tmp.fromNode != null)) {
-                tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
-                tmp = new GraphEdge(tmp.prev);
-            }
-        }
-
-        //new obj that will hold the most right node of this level
-        TreeNode rightMostNode = treeSource;
+        initNeighbors();
 
         //while Q is not empty - keep going:
         // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
         while (Q.headOfQueue != null) {
-            TreeNode nextTreeInQ;
-            QueueNode queueNodeToTraverse = Q.headOfQueue;
-            GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
-            Q.dequeue();
+            if (Q.headOfQueue.value.color != 2) {
+                Q.headOfQueue.value.color = 1;
 
-            // make a new 'treeNodeToTraverse' holder of type treeNode for the right 'graphNodeToTraverse'
-            TreeNode treeNodeToTraverse;
-            if (graphNodeToTraverse == source) {
-                treeNodeToTraverse = treeSource;
-                graphNodeToTraverse.color = 1;
-            } else if (graphNodeToTraverse.color == 0) {
-                graphNodeToTraverse.color = 1;
-                treeNodeToTraverse = new TreeNode(graphNodeToTraverse);
-            } else {
-//                treeNodeToTraverse = nextTreeInQ;
-            }
+                //Deal with Q
+                QueueNode queueNodeToTraverse = Q.headOfQueue;
+                GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
 
-            //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
-            // take his first neighbor from the DDL
-            if (graphNodeToTraverse.NeighborsD.headOfList != null) {
-                int flag = 1;
+                // make a new 'treeNodeToTraverse' holder of type treeNode for the right 'graphNodeToTraverse'
+                TreeNode treeNodeToTraverse;
+                if (graphNodeToTraverse == source) {
+                    treeNodeToTraverse = treeSource;
+                } else {
+                    treeNodeToTraverse = new TreeNode(graphNodeToTraverse);
+                }
 
-                //make a ddl node pointer and new tree node out of the first most left neighbor
-                DoublyNode graphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
+                //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
+                if (graphNodeToTraverse.NeighborsD.headOfList != null) {
+                    //make a ddl node pointer and new tree node out of the first most left neighbor
+                    DoublyNode graphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
+                    //flag for check if lest son
+                    int flag = 1;
 
-                while (graphNeighbor != null) {
                     TreeNode treeNeighbor;
-                    if (graphNeighbor.value.color == 0) {
-                        treeNeighbor = new TreeNode(graphNeighbor.value);
 
-                        if (flag == 1) {
-//                            treeNodeToTraverse.leftSon = treeNeighbor;
-                            flag = 0;
-                        }
+                    while (graphNeighbor != null) {
 
-                        graphNeighbor.value.color = 1;
-                        graphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
-                        graphNeighbor.value.pi = graphNodeToTraverse;
+                        if (graphNeighbor.value.color == 0) {
+                            //deal with the fields
+                            graphNeighbor.value.color = 1;
+                            graphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
+                            graphNeighbor.value.pi = graphNodeToTraverse;
 
-                        Q.enqueue(new QueueNode(graphNeighbor.value));
-                        nextTreeInQ = treeNeighbor;
+                            // make new treeNode
 
-                        // go to next neighbor
-                        //update right sibling of curr node.
-                        if (graphNeighbor.nextDDL != null) {
-                            treeNeighbor.rightSibling = rightMostNode;
-                            rightMostNode = treeNeighbor;
+                            treeNeighbor = new TreeNode(graphNeighbor.value);//////////////////////////////////////////
+
+
+                            // insert Queue
+                            Q.enqueue(new QueueNode(graphNeighbor.value));
+
+                            //new tree node that will hold the most right node of this level
+                            if (flag == 1) {
+                                if(treeNeighbor.value.distance == rightMostNode.value.distance) {
+                                    treeNeighbor.rightSibling = rightMostNode;
+                                }
+                                rightMostNode = treeNeighbor;
+                            }
+
+                            // update right sibling
+                            if(flag == 0) {
+                                rightMostNode.rightSibling = treeNeighbor;
+                                rightMostNode = treeNeighbor;
+                            }
+
+                            // make left son from first neighbor only
+                            if(flag == 1) {
+                                treeNodeToTraverse.leftSon = treeNeighbor;
+                                flag = 0;
+                            }
+
+                            // get next node in neighbor list
+                            if (graphNeighbor.nextDDL != null) {
+                                graphNeighbor = graphNeighbor.nextDDL;
+                            } else {
+                                graphNeighbor = null;
+                            }
+                        } else if (graphNeighbor.nextDDL != null){
                             graphNeighbor = graphNeighbor.nextDDL;
                         } else {
-                            treeNeighbor.rightSibling = null;
-                            rightMostNode = treeNeighbor;
-                            break;
+                            graphNeighbor = null;
                         }
                     }
+                    graphNodeToTraverse.color = 2;
                 }
             }
-            graphNodeToTraverse.color = 2;
+            Q.dequeue();
         }
         return bfsTree;
     }
@@ -386,12 +402,6 @@ public class DynamicGraph<build_Transpose> {
     public Queue bfs_initialization(Queue Q, GraphNode source) {
         GraphNode initialSource = source;
 
-        QueueNode q1 = new QueueNode(source);
-        Q.enqueue(q1);
-        source.color = 0;
-        source.distance = 0;
-        source.pi = null;
-
         // O(N)
         while (source.next != null) {
             node_initialize(source.next);
@@ -406,6 +416,12 @@ public class DynamicGraph<build_Transpose> {
             source = source.prev;
         }
         node_initialize(nodeHead);
+
+        QueueNode q1 = new QueueNode(source);
+        Q.enqueue(q1);
+        source.color = 0;
+        source.distance = 0;
+        source.pi = null;
 
         return Q;
     }
