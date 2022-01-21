@@ -336,7 +336,7 @@ public class DynamicGraph<build_Transpose> {
                             //new tree node that will hold the most right node of this level
                             if (flag == 1) {
                                 if(rightMostNode.distance == graphNeighbor.value.distance) {
-                                    rightMostNode.rightSibling = graphNeighbor.value;
+                                    rightMostNode.specialRightSibling = graphNeighbor.value;
                                 }
                                 rightMostNode = graphNeighbor.value;
                             }

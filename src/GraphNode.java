@@ -25,6 +25,7 @@ public class GraphNode {
     // For Trees
     public GraphNode leftSon;
     public GraphNode rightSibling;
+    public GraphNode specialRightSibling;
 
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;

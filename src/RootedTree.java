@@ -19,6 +19,10 @@ public class RootedTree {
     }
 
     public void printByLayer(DataOutputStream out) throws IOException {
+        if (root == null){
+            return;
+        }
+
         GraphNode pointer = new GraphNode(root);
         GraphNode firstLeft = null;
         int flag = 0;
@@ -38,6 +42,12 @@ public class RootedTree {
                 continue;
             }
 
+            if (pointer.specialRightSibling != null) {
+                System.out.printf(",");
+                pointer = pointer.specialRightSibling;
+                continue;
+            }
+
             if (firstLeft != null) {
                 System.out.println("");
                 pointer = firstLeft.leftSon;
@@ -50,63 +60,40 @@ public class RootedTree {
         }
     }
 
+    public void preorderPrint(DataOutputStream out) throws IOException {
 
-//
-////        out.writeInt(pointer.getKey());
-//
-//        while (pointer != null){
-//
-//            System.out.printf("%s \n", String.valueOf(pointer.getKey()));
-//            pointer = pointer.leftSon;
-//
-////            out.writeInt(pointer.getKey());
-//
-//
-//            System.out.printf("%s", String.valueOf(pointer.getKey()));
-//
-//            while (pointer != null) {
-//
-//
-//                if (pointer.leftSon != null) {
-//                    firstLeft = new GraphNode(pointer);
-//                }
-//
-//
-////                if (pointer.rightSibling != null) {
-////                    out.writeUTF(",");
-////                    out.writeInt(pointer.rightSibling.getKey());
-////                }
-//
-//
-//                if (pointer.rightSibling != null) {
-//                    System.out.printf(",");
-//                    System.out.printf("%s", String.valueOf(pointer.rightSibling.getKey()));
-//                    pointer = pointer.rightSibling;
-//                } else {
-//                    pointer = null;
-//                }
-//            }
-//
-//            // test
-//            System.out.println("");
-//
-//            // logic
-//            if (firstLeft != null){
-//            pointer = firstLeft;
-//            pointer = pointer.leftSon;
-//            } else {
-//                break;
-//            }
-//        }
-//    }
+        out.writeInt(5);
+        out.writeUTF(",");
+        out.writeInt(4);
 
+        System.out.println("\n");
 
-
-
-
-
-    public void preorderPrint(DataOutputStream out){
-
+        if (root == null){
+            return;
+        }
+        preorderPrintRec(out, root);
     }
 
+    public void preorderPrintRec(DataOutputStream out,GraphNode pointer) throws IOException{
+        if (pointer == null){
+            return;
+        }
+        System.out.printf("%d", pointer.getKey());
+        int i = pointer.getKey();
+        String s = String.valueOf(i);
+        out.writeUTF(s);
+
+        if (pointer.leftSon != null) {
+            out.writeUTF(",");
+            System.out.printf(",");
+            preorderPrintRec(out, pointer.leftSon);
+        }
+
+        if (pointer.rightSibling != null) {
+            out.writeUTF(",");
+            System.out.printf(",");
+            preorderPrintRec(out, pointer.rightSibling);
+        }
+        return;
+    }
 }

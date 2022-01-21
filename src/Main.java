@@ -89,9 +89,11 @@ class Main {
         RootedTree rt2;
         rt2 = dynGraph.bfs(i1);
 
-        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test1.txt");
+        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test3.txt");
              DataOutputStream dOut = new DataOutputStream(fOut);) {
             rt2.printByLayer(dOut);
+
+            rt2.preorderPrint(dOut);
         } catch (IOException e) {
             e.printStackTrace();
         }
