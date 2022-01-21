@@ -120,46 +120,35 @@ public class DynamicGraph<build_Transpose> {
         int time = 0;
 
         //init Neighbors list
-        if (edgeTail != null) {
-            GraphEdge adj = edgeTail;
-            while ((edgeTail != null) && (adj.fromNode != null)) {
-                adj.fromNode.NeighborsD.insert(new DoublyNode(adj.toNode));
-                if (adj.prev != null) {
-                    adj = adj.prev;
-                } else {
-                    break;
-                }
-            }
-        }
+        initNeighbors();
 
         //Traverse
         Stack stack = new Stack();
         GraphNode pointer = nodeTail;
         while (pointer != null) { // there is still nodes
             if (pointer.color == 0) {
-                dfs_Visit(pointer, time, stack);
-                pointer = pointer.prev;
+                time = dfs_Visit(pointer, time, stack);
             }
+            pointer = pointer.prev;
         }
         return stack;
     }
 
-    public void dfs_Visit(GraphNode nodeToCheck, int time, Stack stack) {
+    public int dfs_Visit(GraphNode nodeToCheck, int time, Stack stack) {
         time++;
-        nodeToCheck.distance = time;
+        nodeToCheck.dTime = time;
         nodeToCheck.color = 1;
 
         if (nodeToCheck.NeighborsD.headOfList != null) {
-            GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
+            DoublyNode tmp = new DoublyNode(nodeToCheck.NeighborsD.headOfList);
             while (tmp != null) { //there are still neighbors
-                if (tmp.color == 0) {
-                    tmp.pi = nodeToCheck;
-                    dfs_Visit(tmp, time, stack);
+                if (tmp.value.color == 0) {
+                    tmp.value.pi = nodeToCheck;
+                    time = dfs_Visit(tmp.value, time, stack);
                 }
 
-
-                if (tmp.next != null) {
-                    tmp = new GraphNode(tmp.next);
+                if (tmp.nextDDL != null) {
+                    tmp = tmp.nextDDL;
                 } else {
                     break;
                 }
@@ -169,7 +158,14 @@ public class DynamicGraph<build_Transpose> {
         stack.push(new DoublyNode(nodeToCheck));
         nodeToCheck.color = 2;
         time++;
-        nodeToCheck.f = time;
+        nodeToCheck.fTime = time;
+        return time;
+    }
+
+    public void reverse(GraphEdge edge){
+        GraphNode node = edge.toNode;
+        edge.toNode = edge.fromNode;
+        edge.fromNode = node;
     }
 
     public DynamicGraph buildTranspose() {
@@ -179,14 +175,12 @@ public class DynamicGraph<build_Transpose> {
         graphTranspose.edgeTail = this.edgeTail;
         graphTranspose.edgeHead = this.edgeHead;
 
-        GraphEdge tmp = new GraphEdge(graphTranspose.edgeHead);
-        while (graphTranspose.edgeHead != null) {
-            GraphNode node = edgeHead.toNode;
-            edgeHead.toNode = edgeHead.fromNode;
-            edgeHead.fromNode = node;
+        GraphEdge tmp = graphTranspose.edgeHead;
+        while (tmp != null) {
+            graphTranspose.reverse(tmp);
 
             if (tmp.next != null) {
-                tmp = new GraphEdge(tmp.next);
+                tmp = tmp.next;
             } else {
                 break;
             }
@@ -214,13 +208,7 @@ public class DynamicGraph<build_Transpose> {
         int time = 0;
 
         //init Neighbors list
-        if (graphTranspose.edgeTail != null) {
-            GraphEdge adj = graphTranspose.edgeTail;
-            while ((graphTranspose.edgeTail != null) && (adj.fromNode != null)) {
-                adj.fromNode.NeighborsD.insert(new DoublyNode(adj.toNode));
-                adj = adj.prev;
-            }
-        }
+        initNeighbors();
 
         //Traverse
         DDLofDDL scc = new DDLofDDL();
@@ -239,28 +227,30 @@ public class DynamicGraph<build_Transpose> {
 
     public void dfs_Visit2(GraphNode nodeToCheck, int time, Stack stack, DDLofDDL scc, DoublyLinkedList oneConnected) {
         time++;
-        nodeToCheck.distance = time;
+        nodeToCheck.dTime = time;
         nodeToCheck.color = 1;
 
-        GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
-        while (tmp != null) { //there are still neighbors
-            if (tmp.color == 0) {
-                oneConnected.insert(new DoublyNode(nodeToCheck));
-                tmp.pi = nodeToCheck;
-                dfs_Visit2(tmp, time, stack, scc, oneConnected);
-            }
+        if (nodeToCheck.NeighborsD.headOfList != null) {
+            GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
+            while (tmp != null) { //there are still neighbors
+                if (tmp.color == 0) {
+                    oneConnected.insert(new DoublyNode(nodeToCheck));
+                    tmp.pi = nodeToCheck;
+                    dfs_Visit2(tmp, time, stack, scc, oneConnected);
+                }
 
-            if (tmp.next != null) {
-                tmp = new GraphNode(tmp.next);
-            } else {
-                break;
+                if (tmp.next != null) {
+                    tmp = new GraphNode(tmp.next);
+                } else {
+                    break;
+                }
             }
         }
 
         scc.insert(oneConnected);
         nodeToCheck.color = 2;
         time++;
-        nodeToCheck.f = time;
+        nodeToCheck.fTime = time;
     }
 
     public RootedTree scc() {
@@ -268,9 +258,16 @@ public class DynamicGraph<build_Transpose> {
 
         DynamicGraph gTranspose = buildTranspose();
 
+
+        /// נשאר לדבג רק את השיט הזה, להרוג את החלק השני, הראשון וההפיכה עובד פיקס... לדבג. להפוך את הSCC לעץ וסיימנו
+        // להפוך אותו לעץ אני עושה בכך שאני מייצר עוד צומת אולי גם עוד גרף מחבר לילה טוב
         DDLofDDL scc = dfs2(stack, gTranspose);
 
         // הפוך את הSCC לעץ
+//        DynamicGraph virtualGraph = new DynamicGraph();
+//        GraphNode virtualNode = new GraphNode();
+//        virtualGraph.insertNode(virtualNode);
+        RootedTree sccTree = new RootedTree();
         return new RootedTree();
     }
 
@@ -372,7 +369,6 @@ public class DynamicGraph<build_Transpose> {
         }
         return bfsTree;
     }
-
 
     //O(1)
     public void node_initialize(GraphNode node) {

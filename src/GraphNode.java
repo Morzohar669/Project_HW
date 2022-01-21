@@ -20,7 +20,8 @@ public class GraphNode {
     public GraphNode pi;
 
     // For DFS
-    public int f;
+    public int fTime;
+    public int dTime;
 
     // For Trees
     public GraphNode leftSon;

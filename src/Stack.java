@@ -2,7 +2,9 @@ public class Stack {
 
     public DoublyLinkedList stackDDL;
 
-    public Stack(){}
+    public Stack(){
+        this.stackDDL = new DoublyLinkedList();
+    }
 
     public void push(DoublyNode node){
         stackDDL.insert(node);

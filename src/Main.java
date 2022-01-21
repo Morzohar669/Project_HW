@@ -5,6 +5,7 @@ import java.io.IOException;
 class Main {
     public static void main(String[] args) throws IOException {
         DynamicGraph dynGraph = new DynamicGraph();
+        DynamicGraph dynGraph2 = new DynamicGraph();
 
 
 //        GraphNode i1 = dynGraph.insertNode(1);
@@ -21,17 +22,17 @@ class Main {
 //
 //
 //        dynGraph.scc();
-
-
-        System.out.println("\n1). all null " +
-                "\n");
-        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
-        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
-        System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
-        System.out.printf("the node tail is: %x\n", dynGraph.nodeHead);
-
-        System.out.println("\n ------------------------- \n");
-
+//
+//
+//        System.out.println("\n1). all null " +
+//                "\n");
+//        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+//        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+//        System.out.printf("the node head is: %x\n", dynGraph.nodeHead);
+//        System.out.printf("the node tail is: %x\n", dynGraph.nodeHead);
+//
+//        System.out.println("\n ------------------------- \n");
+//
         GraphNode i1 = dynGraph.insertNode(1);
         GraphNode i2 = dynGraph.insertNode(2);
         GraphNode i3 = dynGraph.insertNode(3);
@@ -42,16 +43,16 @@ class Main {
         GraphNode i8 = dynGraph.insertNode(8);
         GraphNode i9 = dynGraph.insertNode(9);
         GraphNode i10 = dynGraph.insertNode(10);
-
-        System.out.println("\n2). 1 should be node head 7 should be tail" +
-                "\n edge null " +
-                "\n");
-        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
-        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
-        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
-        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
-
-        System.out.println("\n ------------------------- \n");
+//
+//        System.out.println("\n2). 1 should be node head 7 should be tail" +
+//                "\n edge null " +
+//                "\n");
+//        System.out.printf("the edge head is: %x\n", dynGraph.edgeHead);
+//        System.out.printf("the edge tail is: %x\n", dynGraph.edgeTail);
+//        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
+//        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
+//
+//        System.out.println("\n ------------------------- \n");
 
         GraphEdge e1 = dynGraph.insertEdge(i1, i2);
         GraphEdge e2 = dynGraph.insertEdge(i1, i3);
@@ -75,6 +76,21 @@ class Main {
 //        System.out.printf("the node head is: %d\n", dynGraph.nodeHead.getKey());
 //        System.out.printf("the node tail is: %d\n", dynGraph.nodeTail.getKey());
 
+        GraphNode n1 = dynGraph2.insertNode(1);
+        GraphNode n2 = dynGraph2.insertNode(2);
+        GraphNode n3 = dynGraph2.insertNode(3);
+        GraphNode n4 = dynGraph2.insertNode(4);
+        GraphNode n5 = dynGraph2.insertNode(5);
+        GraphNode n6 = dynGraph2.insertNode(6);
+
+
+        GraphEdge t1 = dynGraph2.insertEdge(n1, n2);
+        GraphEdge t2 = dynGraph2.insertEdge(n2, n3);
+        GraphEdge t3 = dynGraph2.insertEdge(n3, n4);
+        GraphEdge t4 = dynGraph2.insertEdge(n4, n1);
+        //===================
+        GraphEdge t5 = dynGraph2.insertEdge(n5, n6);
+
 //        dynGraph.initNeighbors();
 //        print_adj(dynGraph, i1);
 //        print_adj(dynGraph, i2);
@@ -88,6 +104,8 @@ class Main {
 
         RootedTree rt2;
         rt2 = dynGraph.bfs(i1);
+
+        dynGraph2.scc();
 
         try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test3.txt");
              DataOutputStream dOut = new DataOutputStream(fOut);) {
