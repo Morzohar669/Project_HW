@@ -76,11 +76,6 @@ public class RootedTree {
     }
 
     public void preorderPrint(DataOutputStream out) throws IOException {
-
-        //TEST
-        System.out.println("\n");
-        //
-
         if (root == null){
             return;
         }

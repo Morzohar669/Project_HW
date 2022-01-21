@@ -100,18 +100,29 @@ class Main {
 //        print_adj(dynGraph, i6);
 //        print_adj(dynGraph, i7);
 
-        System.out.println("\n\n");
 
         RootedTree rt2;
-        rt2 = dynGraph.bfs(i1);
+        RootedTree rt3;
 
-        dynGraph2.scc();
+        rt2 = dynGraph.bfs(i1);
+        rt3 = dynGraph2.scc();
 
         try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test3.txt");
              DataOutputStream dOut = new DataOutputStream(fOut);) {
-            rt2.printByLayer(dOut);
 
+            System.out.println("BFS TEST:");
+            System.out.println("printByLayer:");
+            rt2.printByLayer(dOut);
+            System.out.println("\npreorderPrint:");
             rt2.preorderPrint(dOut);
+
+            System.out.println("\n\nSCC TEST:");
+            System.out.println("printByLayer:");
+            rt3.printByLayer(dOut);
+            System.out.println("\npreorderPrint:");
+            rt3.preorderPrint(dOut);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,8 +11,12 @@ public class Stack {
     }
 
     public DoublyNode POP(){
-        DoublyNode tmpToDelete = stackDDL.headOfList;
-        stackDDL.delete(tmpToDelete);
-        return tmpToDelete;
+        if (stackDDL.headOfList != null){
+            DoublyNode tmpToDelete = stackDDL.headOfList;
+            stackDDL.delete(tmpToDelete);
+            return tmpToDelete;
+        } else {
+            return null;
+        }
     }
 }

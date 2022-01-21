@@ -31,6 +31,7 @@ public class GraphNode {
     // For the DoublyLinkedList
     public DoublyLinkedList NeighborsD;
 
+    // For virtual Node in scc
     public GraphNode(){
         this.key = 0;
         this.inDegree = 0;
