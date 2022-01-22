@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0ec0fe66-7fbf-4da1-8d01-00e127bb6170" name="Default Changelist" comment="יבוגיםםםםםם&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה">
+      <change beforePath="$PROJECT_DIR$/out/production/Project HW/GraphNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project HW/GraphNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project HW/kaki.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="22EV7FlocscyUC3ezpl6t3f2I6W" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Java technion/JavaTechnion/Noded" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Project HW" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="kaki" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="kaki" />
+      <module name="Project HW" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.kaki" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ec0fe66-7fbf-4da1-8d01-00e127bb6170" name="Default Changelist" comment="" />
+      <created>1639402571276</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1639402571276</updated>
+      <workItem from="1639402572365" duration="927000" />
+      <workItem from="1639406117979" duration="10342000" />
+      <workItem from="1639676074674" duration="15000" />
+      <workItem from="1639676221905" duration="2763000" />
+      <workItem from="1639737766222" duration="1000" />
+      <workItem from="1640516769336" duration="2557000" />
+      <workItem from="1640683314431" duration="2217000" />
+      <workItem from="1640855601105" duration="9000" />
+      <workItem from="1641912650357" duration="5346000" />
+      <workItem from="1641918336565" duration="8546000" />
+      <workItem from="1641927055924" duration="92000" />
+      <workItem from="1642156459288" duration="11092000" />
+      <workItem from="1642241917254" duration="6174000" />
+      <workItem from="1642323329228" duration="7632000" />
+      <workItem from="1642360798047" duration="195000" />
+      <workItem from="1642505176593" duration="7170000" />
+      <workItem from="1642514286624" duration="24814000" />
+      <workItem from="1642604708175" duration="17926000" />
+    </task>
+    <task id="LOCAL-00001" summary="kaki update">
+      <created>1640684718952</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1640684718952</updated>
+    </task>
+    <task id="LOCAL-00002" summary="יש רשימת שכנויות פעילה">
+      <created>1642331251902</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1642331251902</updated>
+    </task>
+    <task id="LOCAL-00003" summary="חוסרים:&#10;&#10;SCC הכל&#10;&#10;לתקן בעיה בBFS [בתקווה פותר גם את &#10;עניין ההדפסה]&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה&#10;&#10;להבין איך עושים עם השרת&#10;&#10;לבדוק עם השרת">
+      <created>1642540402260</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1642540402260</updated>
+    </task>
+    <task id="LOCAL-00004" summary="עובד הBFS">
+      <created>1642549126402</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1642549126402</updated>
+    </task>
+    <task id="LOCAL-00005" summary="יבוגיםםםםםם&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה">
+      <created>1642622845865</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1642622845866</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="kaki update" />
+    <MESSAGE value="prograss" />
+    <MESSAGE value="יש רשימת שכנויות פעילה" />
+    <MESSAGE value="חוסרים:&#10;&#10;SCC הכל&#10;&#10;לתקן בעיה בBFS [בתקווה פותר גם את &#10;עניין ההדפסה]&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה&#10;&#10;להבין איך עושים עם השרת&#10;&#10;לבדוק עם השרת" />
+    <MESSAGE value="עובד הBFS" />
+    <MESSAGE value="יבוגיםםםםםם&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה" />
+    <option name="LAST_COMMIT_MESSAGE" value="יבוגיםםםםםם&#10;&#10;למצוא איך עושים פסיקים בDOS וירידת שורה" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/DynamicGraph.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/DynamicGraph.java</url>
+          <line>125</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/DynamicGraph.java</url>
+          <line>152</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Stack.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="TreeNode" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
