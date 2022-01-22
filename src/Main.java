@@ -15,6 +15,7 @@ class Main {
         GraphNode n7 = dynGraph2.insertNode(7);
         GraphNode n8 = dynGraph2.insertNode(8);
         GraphNode n9 = dynGraph2.insertNode(9);
+        GraphNode n10 = dynGraph2.insertNode(10);
 
 
         GraphEdge t1 = dynGraph2.insertEdge(n1, n2);
@@ -44,6 +45,26 @@ class Main {
             rt.preorderPrint(dOut);
             dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
 
+            rt = dynGraph2.scc();
+            dOut.writeBytes("SCC TEST:" + System.lineSeparator());
+            dOut.writeBytes("printByLayer:" + System.lineSeparator());
+            rt.printByLayer(dOut);
+            dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
+            rt.preorderPrint(dOut);
+
+
+            dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
+            dOut.writeBytes("TEST 2!! now i will delete 2 edges:  Edge(n1, n2);  Edge(n2, n3);" + System.lineSeparator());
+
+
+            rt = dynGraph2.bfs(n1);
+            dOut.writeBytes("BFS TEST:" + System.lineSeparator());
+            dOut.writeBytes("printByLayer:" + System.lineSeparator());
+            rt.printByLayer(dOut);
+            dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
+            rt.preorderPrint(dOut);
+            dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
+
 
             rt = dynGraph2.scc();
             dOut.writeBytes("SCC TEST:" + System.lineSeparator());
@@ -51,6 +72,7 @@ class Main {
             rt.printByLayer(dOut);
             dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
             rt.preorderPrint(dOut);
+
 
 
         } catch (IOException e) {
