@@ -127,7 +127,7 @@ public class DynamicGraph<build_Transpose> {
         //Traverse
         Stack stack = new Stack();
         GraphNode pointer = nodeTail;
-        while (pointer != null) { // there is still nodes
+        while (pointer != null) { // there are still nodes
             if (pointer.color == 0) {
                 time = dfs_Visit(pointer, time, stack);
             }
@@ -164,7 +164,7 @@ public class DynamicGraph<build_Transpose> {
         return time;
     }
 
-    public void reverse(GraphEdge edge){
+    public void reverse(GraphEdge edge) {
         GraphNode node = edge.toNode;
         edge.toNode = edge.fromNode;
         edge.fromNode = node;
@@ -191,16 +191,27 @@ public class DynamicGraph<build_Transpose> {
         return graphTranspose;
     }
 
-
-
-//    public DDLofDDL dfs2(Stack stack, DynamicGraph graphTranspose) {
+//    public RootedTree dfs2(Stack stack, DynamicGraph graphTranspose) {
+//        // init pointers and trees
+//        GraphNode virtualRoot = new GraphNode();
+//        DoublyNode virtualPointer = new DoublyNode(virtualRoot);
+//        DoublyLinkedList virtualPointerDDL = new DoublyLinkedList(virtualPointer);
+//        RootedTree sccTree = new RootedTree(virtualRoot);
+//        nullNeighbors(graphTranspose);
+//        graphTranspose.initNeighbors();
 //
-//        //init
-//        GraphNode tmp = graphTranspose.nodeHead;
+//        //for first iteration
+//        int flag = 0;
+//
+//        //init nodes attributes
 //        if (graphTranspose.nodeHead != null) {
+//        GraphNode tmp = graphTranspose.nodeHead;
+//
 //            while (tmp != null) {
 //                tmp.color = 0;
-//                tmp.pi = null;
+//                tmp.leftSon = null;
+//                tmp.rightSibling = null;
+//                tmp.specialRightSibling = null;
 //
 //                if (tmp.next != null) {
 //                    tmp = tmp.next;
@@ -211,135 +222,61 @@ public class DynamicGraph<build_Transpose> {
 //        }
 //        int time = 0;
 //
+//        DoublyNode doublyNodeToTraverse = stack.POP();
 //
-//        //Traverse
-//        DDLofDDL scc = new DDLofDDL();
-//        DoublyNode doublyNode = stack.POP();
-//        GraphNode first = doublyNode.value;
-//        GraphNode pointer = first;
-//        while (pointer != null) { // there is still nodes
-//            if (pointer.color == 0) {
-//                DoublyLinkedList oneConnected = new DoublyLinkedList();
-//                dfs_Visit2(pointer, time, stack, scc, oneConnected);
-//                pointer = stack.POP().value;
-//            }
-//        }
-//        return scc;
-//    }
+//        while (doublyNodeToTraverse != null) { // there is still nodes
+//            if (doublyNodeToTraverse.value.color == 0) {
 //
-//    public void dfs_Visit2(GraphNode nodeToCheck, int time, Stack stack, DDLofDDL scc, DoublyLinkedList oneConnected) {
-//        time++;
-//        nodeToCheck.dTime = time;
-//        nodeToCheck.color = 1;
+//                if (flag == 0) {
+//                    //in the first iteration we save the left son of virtual to be the curr node
+//                    virtualRoot.leftSon = doublyNodeToTraverse.value;
+//                    virtualPointer = doublyNodeToTraverse;
+//                    flag = 1;
 //
-//        if (nodeToCheck.NeighborsD.headOfList != null) {
-//            GraphNode tmp = nodeToCheck.NeighborsD.headOfList.value;
-//            while (tmp != null) { //there are still neighbors
-//                if (tmp.color == 0) {
-//                    oneConnected.insert(new DoublyNode(nodeToCheck));
-//                    tmp.pi = nodeToCheck;
-//                    dfs_Visit2(tmp, time, stack, scc, oneConnected);
+//                    //here we are not in the first traverse so the curr node should be the sibling of the lest one
+//                } else {
+//                    virtualPointer.value.rightSibling = doublyNodeToTraverse.value;
+//                    virtualPointer = doublyNodeToTraverse;
 //                }
 //
-//                if (tmp.next != null) {
-//                    tmp = new GraphNode(tmp.next);
+//                dfs_Visit2(doublyNodeToTraverse, time, stack, virtualPointer);
+//            }
+//            doublyNodeToTraverse = stack.POP();
+//        }
+//
+//
+//        return sccTree;
+//    }
+//
+//    public void dfs_Visit2(DoublyNode doublyNodeToTraverse, int time, Stack stack, DoublyNode virtualPointer) {
+//        time++;
+//        doublyNodeToTraverse.value.dTime = time;
+//        doublyNodeToTraverse.value.color = 1;
+//        DoublyNode virtualPointerHolder = new DoublyNode(virtualPointer);
+//
+//        if (doublyNodeToTraverse.value.NeighborsD.headOfList != null) {
+//            DoublyNode neighborRunPointer = doublyNodeToTraverse.value.NeighborsD.headOfList;
+//            while (neighborRunPointer != null) { //there are still neighbors
+//                if (neighborRunPointer.value.color == 0) {
+//                    virtualPointer.value.leftSon = neighborRunPointer.value;
+//                    virtualPointer = neighborRunPointer;
+//
+//                    dfs_Visit2(neighborRunPointer, time, stack, virtualPointer);
+//                }
+//
+//                if (neighborRunPointer.nextDDL != null) {
+//                    neighborRunPointer = new DoublyNode(neighborRunPointer.nextDDL);
 //                } else {
 //                    break;
 //                }
 //            }
 //        }
 //
-//        scc.insert(oneConnected);
-//        nodeToCheck.color = 2;
+//        doublyNodeToTraverse.value.color = 2;
 //        time++;
-//        nodeToCheck.fTime = time;
+//        doublyNodeToTraverse.value.fTime = time;
+//        virtualPointer = virtualPointerHolder;
 //    }
-
-
-    public RootedTree dfs2(Stack stack, DynamicGraph graphTranspose) {
-        // init pointers and trees
-        GraphNode virtualRoot = new GraphNode();
-        DoublyNode virtualPointer = new DoublyNode(virtualRoot);
-        DoublyLinkedList virtualPointerDDL = new DoublyLinkedList(virtualPointer);
-        RootedTree sccTree = new RootedTree(virtualRoot);
-
-        //for first iteration
-        int flag = 0;
-
-        //init nodes attributes
-        GraphNode tmp = graphTranspose.nodeHead;
-        if (graphTranspose.nodeHead != null) {
-            while (tmp != null) {
-                tmp.color = 0;
-                tmp.leftSon = null;
-                tmp.rightSibling = null;
-                tmp.specialRightSibling = null;
-
-                if (tmp.next != null) {
-                    tmp = tmp.next;
-                } else {
-                    break;
-                }
-            }
-        }
-        int time = 0;
-
-        DoublyNode doublyNodeToTraverse = stack.POP();
-
-        while (doublyNodeToTraverse != null) { // there is still nodes
-            if (doublyNodeToTraverse.value.color == 0) {
-
-                if (flag == 0) {
-                    //in the first iteration we save the left son of virtual to be the curr node
-                    virtualRoot.leftSon = doublyNodeToTraverse.value;
-                    virtualPointer = doublyNodeToTraverse;
-                    flag = 1;
-
-                    //here we are not in the first traverse so the curr node should be the sibling of the lest one
-                } else {
-                    virtualPointer.value.rightSibling = doublyNodeToTraverse.value;
-                }
-
-                dfs_Visit2(doublyNodeToTraverse, time, stack, virtualPointer);
-            }
-            doublyNodeToTraverse = stack.POP();
-        }
-
-        return sccTree;
-    }
-
-
-    public void dfs_Visit2(DoublyNode doublyNodeToTraverse, int time, Stack stack, DoublyNode virtualPointer) {
-        time++;
-        doublyNodeToTraverse.value.dTime = time;
-        doublyNodeToTraverse.value.color = 1;
-        DoublyNode virtualPointerHolder = new DoublyNode(virtualPointer);
-
-        if (doublyNodeToTraverse.value.NeighborsD.headOfList != null) {
-            DoublyNode neighborRunPointer = doublyNodeToTraverse.value.NeighborsD.headOfList;
-            while (neighborRunPointer != null) { //there are still neighbors
-                if (neighborRunPointer.value.color == 0) {
-                    virtualPointer.value.leftSon = neighborRunPointer.value;
-                    virtualPointer = neighborRunPointer;
-
-                    dfs_Visit2(neighborRunPointer, time, stack, virtualPointer);
-                }
-
-                if (neighborRunPointer.nextDDL != null) {
-                    neighborRunPointer = new DoublyNode(neighborRunPointer.nextDDL);
-                } else {
-                    break;
-                }
-            }
-        }
-
-        doublyNodeToTraverse.value.color = 2;
-        time++;
-        doublyNodeToTraverse.value.fTime = time;
-        virtualPointer = virtualPointerHolder;
-    }
-
-
 
     public RootedTree scc() {
 
@@ -347,17 +284,7 @@ public class DynamicGraph<build_Transpose> {
 
         DynamicGraph gTranspose = buildTranspose();
 
-        /// נשאר לדבג רק את השיט הזה, להרוג את החלק השני, הראשון וההפיכה עובד פיקס... לדבג. להפוך את הSCC לעץ וסיימנו
-        // להפוך אותו לעץ אני עושה בכך שאני מייצר עוד צומת אולי גם עוד גרף מחבר לילה טוב
         RootedTree sccTree = dfs2(stack, gTranspose);
-
-
-//        DDLofDDL scc = dfs2(stack, gTranspose)
-//          הפוך את הSCC לעץ
-//        DynamicGraph virtualGraph = new DynamicGraph();
-//        GraphNode virtualNode = new GraphNode();
-//        virtualGraph.insertNode(virtualNode);
-//        RootedTree sccTree = new RootedTree();
 
         return sccTree;
     }
@@ -370,6 +297,22 @@ public class DynamicGraph<build_Transpose> {
             GraphEdge tmp = new GraphEdge(edgeTail);
             while (true) {
                 tmp.fromNode.NeighborsD.insert(new DoublyNode(tmp.toNode));
+
+                if (tmp.prev != null) {
+                    tmp = tmp.prev;
+                } else return;
+            }
+        }
+    }
+
+    public void nullNeighbors(DynamicGraph currGraph) {
+        //initialise Neighbors lists for each Node by going once over the 'edge DDL list'
+        // O(E) * O(1)
+        if (currGraph.nodeTail != null) {
+
+            GraphNode tmp = new GraphNode(currGraph.nodeTail);
+            while (true) {
+                tmp.NeighborsD = new DoublyLinkedList();
 
                 if (tmp.prev != null) {
                     tmp = tmp.prev;
@@ -423,20 +366,20 @@ public class DynamicGraph<build_Transpose> {
 
                             //new tree node that will hold the most right node of this level
                             if (flag == 1) {
-                                if(rightMostNode.distance == graphNeighbor.value.distance) {
+                                if (rightMostNode.distance == graphNeighbor.value.distance) {
                                     rightMostNode.specialRightSibling = graphNeighbor.value;
                                 }
                                 rightMostNode = graphNeighbor.value;
                             }
 
                             // update right sibling
-                            if(flag == 0) {
+                            if (flag == 0) {
                                 rightMostNode.rightSibling = graphNeighbor.value;
                                 rightMostNode = graphNeighbor.value;
                             }
 
                             // make left son from first neighbor only
-                            if(flag == 1) {
+                            if (flag == 1) {
                                 graphNodeToTraverse.leftSon = graphNeighbor.value;
                                 flag = 0;
                             }
@@ -447,7 +390,7 @@ public class DynamicGraph<build_Transpose> {
                             } else {
                                 graphNeighbor = null;
                             }
-                        } else if (graphNeighbor.nextDDL != null){
+                        } else if (graphNeighbor.nextDDL != null) {
                             graphNeighbor = graphNeighbor.nextDDL;
                         } else {
                             graphNeighbor = null;
@@ -474,6 +417,14 @@ public class DynamicGraph<build_Transpose> {
     public Queue bfs_initialization(Queue Q, GraphNode source) {
         GraphNode initialSource = source;
 
+        QueueNode q1 = new QueueNode(source);
+        Q.enqueue(q1);
+        source.color = 0;
+        source.distance = 0;
+        source.leftSon = null;
+        source.rightSibling = null;
+        source.specialRightSibling = null;
+
         // O(N)
         while (source.next != null) {
             node_initialize(source.next);
@@ -489,14 +440,176 @@ public class DynamicGraph<build_Transpose> {
         }
         node_initialize(nodeHead);
 
-        QueueNode q1 = new QueueNode(source);
-        Q.enqueue(q1);
-        source.color = 0;
-        source.distance = 0;
-        source.leftSon = null;
-        source.rightSibling = null;
-        source.specialRightSibling = null;
-
         return Q;
     }
+
+
+
+
+
+
+
+
+
+    public RootedTree dfs2(Stack stack, DynamicGraph graphTranspose) {
+        // init pointers and trees
+        DynamicGraph virtualGraph = new DynamicGraph();
+        GraphNode virtualRoot = new GraphNode();
+        DoublyNode virtualPointer = new DoublyNode(virtualRoot);
+        DoublyLinkedList virtualPointerDDL = new DoublyLinkedList(virtualPointer);
+//        RootedTree sccTree = new RootedTree(virtualRoot);
+        nullNeighbors(graphTranspose);
+        graphTranspose.initNeighbors();
+
+        //for first iteration
+        int flag = 0;
+
+        //init nodes attributes
+        if (graphTranspose.nodeHead != null) {
+            GraphNode tmp = graphTranspose.nodeHead;
+
+            while (tmp != null) {
+                tmp.color = 0;
+                tmp.leftSon = null;
+                tmp.rightSibling = null;
+                tmp.specialRightSibling = null;
+
+                if (tmp.next != null) {
+                    tmp = tmp.next;
+                } else {
+                    break;
+                }
+            }
+        }
+        int time = 0;
+
+        DoublyNode doublyNodeToTraverse = stack.POP();
+
+        while (doublyNodeToTraverse != null) { // there is still nodes
+            if (doublyNodeToTraverse.value.color == 0) {
+
+                GraphNode newStronglyConnected = virtualGraph.insertNode(doublyNodeToTraverse.value.getKey());
+                virtualGraph.insertEdge(virtualPointer.value, newStronglyConnected);
+
+                dfs_Visit2(doublyNodeToTraverse, time, stack, virtualPointer, virtualGraph, newStronglyConnected);
+            }
+            doublyNodeToTraverse = stack.POP();
+        }
+
+        RootedTree sccTree = virtualGraph.bfs2(virtualRoot);
+        return sccTree;
+    }
+
+    public void dfs_Visit2(DoublyNode doublyNodeToTraverse, int time, Stack stack, DoublyNode virtualPointer, DynamicGraph virtualGraph, GraphNode newStronglyConnected) {
+        time++;
+        doublyNodeToTraverse.value.dTime = time;
+        doublyNodeToTraverse.value.color = 1;
+        DoublyNode virtualPointerHolder = new DoublyNode(virtualPointer);
+
+        if (doublyNodeToTraverse.value.NeighborsD.headOfList != null) {
+            DoublyNode neighborRunPointer = doublyNodeToTraverse.value.NeighborsD.headOfList;
+            while (neighborRunPointer != null) { //there are still neighbors
+                if (neighborRunPointer.value.color == 0) {
+
+                    GraphNode newNode = virtualGraph.insertNode(neighborRunPointer.value.getKey());
+                    virtualGraph.insertEdge(doublyNodeToTraverse.value, newNode);
+
+//                    virtualPointer.value.leftSon = neighborRunPointer.value;
+                    virtualPointer = neighborRunPointer;
+
+                    dfs_Visit2(neighborRunPointer, time, stack, virtualPointer, virtualGraph, newNode);
+                }
+
+                if (neighborRunPointer.nextDDL != null) {
+                    neighborRunPointer = new DoublyNode(neighborRunPointer.nextDDL);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        doublyNodeToTraverse.value.color = 2;
+        time++;
+        doublyNodeToTraverse.value.fTime = time;
+        virtualPointer = virtualPointerHolder;
+    }
+
+
+    public RootedTree bfs2(GraphNode source) {
+
+        RootedTree bfsTree = new RootedTree(source);
+        GraphNode rightMostNode = source;
+        Queue Q = new Queue();
+        Q = bfs_initialization(Q, source);
+
+        initNeighbors();
+
+        //while Q is not empty - keep going:
+        // delete the first Queue Node in Q and take his value to be - 'GraphNodeToTraverse'
+        while (Q.headOfQueue != null) {
+            if (Q.headOfQueue.value.color != 2) {
+                Q.headOfQueue.value.color = 1;
+
+                //Deal with Q
+                QueueNode queueNodeToTraverse = Q.headOfQueue;
+                GraphNode graphNodeToTraverse = queueNodeToTraverse.value;
+
+                //while 'graphNodeToTraverse' still have Neighbors (means his NeighborsD DDL is not empty - keep going:
+                if (graphNodeToTraverse.NeighborsD.headOfList != null) {
+                    //make a ddl node pointer and new tree node out of the first most left neighbor
+                    DoublyNode graphNeighbor = graphNodeToTraverse.NeighborsD.headOfList;
+                    //flag for check if lest son
+                    int flag = 1;
+
+                    while (graphNeighbor != null) {
+
+                        if (graphNeighbor.value.color == 0) {
+                            //deal with the fields
+                            graphNeighbor.value.color = 1;
+                            graphNeighbor.value.distance = graphNodeToTraverse.distance + 1;
+                            graphNeighbor.value.pi = graphNodeToTraverse;
+
+                            // insert Queue
+                            Q.enqueue(new QueueNode(graphNeighbor.value));
+
+                            //new tree node that will hold the most right node of this level
+                            if (flag == 1) {
+                                if (rightMostNode.distance == graphNeighbor.value.distance) {
+                                    rightMostNode.specialRightSibling = graphNeighbor.value;
+                                }
+                                rightMostNode = graphNeighbor.value;
+                            }
+
+                            // update right sibling
+                            if (flag == 0) {
+                                rightMostNode.rightSibling = graphNeighbor.value;
+                                rightMostNode = graphNeighbor.value;
+                            }
+
+                            // make left son from first neighbor only
+                            if (flag == 1) {
+                                graphNodeToTraverse.leftSon = graphNeighbor.value;
+                                flag = 0;
+                            }
+
+                            // get next node in neighbor list
+                            if (graphNeighbor.nextDDL != null) {
+                                graphNeighbor = graphNeighbor.nextDDL;
+                            } else {
+                                graphNeighbor = null;
+                            }
+                        } else if (graphNeighbor.nextDDL != null) {
+                            graphNeighbor = graphNeighbor.nextDDL;
+                        } else {
+                            graphNeighbor = null;
+                        }
+                    }
+                    graphNodeToTraverse.color = 2;
+                }
+            }
+            Q.dequeue();
+        }
+        return bfsTree;
+    }
+
 }

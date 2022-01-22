@@ -54,19 +54,32 @@ class Main {
 //
 //        System.out.println("\n ------------------------- \n");
 
+        //my//////////////////////////////////////////////////////////////
         GraphEdge e1 = dynGraph.insertEdge(i1, i2);
         GraphEdge e2 = dynGraph.insertEdge(i1, i3);
         GraphEdge e3 = dynGraph.insertEdge(i1, i4);
-        GraphEdge e4 = dynGraph.insertEdge(i4, i1);
-        GraphEdge e5 = dynGraph.insertEdge(i3, i7);
-        GraphEdge e6 = dynGraph.insertEdge(i3, i6);
-        GraphEdge e7 = dynGraph.insertEdge(i4, i6);
+//        GraphEdge e4 = dynGraph.insertEdge(i4, i1);
+//        GraphEdge e5 = dynGraph.insertEdge(i3, i7);
+//        GraphEdge e6 = dynGraph.insertEdge(i3, i6);
+//        GraphEdge e7 = dynGraph.insertEdge(i4, i6);
         GraphEdge e8 = dynGraph.insertEdge(i4, i5);
-        GraphEdge e9 = dynGraph.insertEdge(i7, i6);
-        GraphEdge e10 = dynGraph.insertEdge(i5, i6);
-        GraphEdge e11 = dynGraph.insertEdge(i7, i10);
+//        GraphEdge e9 = dynGraph.insertEdge(i7, i6);
+//        GraphEdge e10 = dynGraph.insertEdge(i5, i6);
+        GraphEdge e11 = dynGraph.insertEdge(i5, i10);
         GraphEdge e12 = dynGraph.insertEdge(i5, i9);
         GraphEdge e13 = dynGraph.insertEdge(i5, i8);
+
+        ////////////////////////////// maor
+//        GraphEdge e1 = dynGraph.insertEdge(i1, i2);
+//        GraphEdge e2 = dynGraph.insertEdge(i1, i3);
+//        GraphEdge e3 = dynGraph.insertEdge(i1, i4);
+//        GraphEdge e4 = dynGraph.insertEdge(i2, i5);
+//        GraphEdge e5 = dynGraph.insertEdge(i2, i6);
+//        GraphEdge e6 = dynGraph.insertEdge(i3, i7);
+//        GraphEdge e7 = dynGraph.insertEdge(i3, i8);
+//        GraphEdge e8 = dynGraph.insertEdge(i4, i9);
+//        GraphEdge e9 = dynGraph.insertEdge(i8, i10);
+
 
 //        System.out.println("\n3). 1 should be node head 7 should be tail" +
 //                "\n 1-2 should be head edge, 3-7 should be tail edge " +
@@ -82,6 +95,9 @@ class Main {
         GraphNode n4 = dynGraph2.insertNode(4);
         GraphNode n5 = dynGraph2.insertNode(5);
         GraphNode n6 = dynGraph2.insertNode(6);
+        GraphNode n7 = dynGraph2.insertNode(7);
+        GraphNode n8 = dynGraph2.insertNode(8);
+        GraphNode n9 = dynGraph2.insertNode(9);
 
 
         GraphEdge t1 = dynGraph2.insertEdge(n1, n2);
@@ -90,6 +106,11 @@ class Main {
         GraphEdge t4 = dynGraph2.insertEdge(n4, n1);
         //===================
         GraphEdge t5 = dynGraph2.insertEdge(n5, n6);
+        GraphEdge t6 = dynGraph2.insertEdge(n6, n5);
+        //===================
+        GraphEdge t7 = dynGraph2.insertEdge(n7, n8);
+        GraphEdge t8 = dynGraph2.insertEdge(n8, n9);
+        GraphEdge t9 = dynGraph2.insertEdge(n9, n7);
 
 //        dynGraph.initNeighbors();
 //        print_adj(dynGraph, i1);
@@ -107,19 +128,21 @@ class Main {
         rt2 = dynGraph.bfs(i1);
         rt3 = dynGraph2.scc();
 
-        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\hjfgh\\test3.txt");
+        try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\morzo\\Downloads\\gregwerg\\test3.txt");
              DataOutputStream dOut = new DataOutputStream(fOut);) {
 
-            System.out.println("BFS TEST:");
-            System.out.println("printByLayer:");
+            dOut.writeBytes("BFS TEST:" + System.lineSeparator());
+            dOut.writeBytes("printByLayer:" + System.lineSeparator());
             rt2.printByLayer(dOut);
-            System.out.println("\npreorderPrint:");
+            dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
             rt2.preorderPrint(dOut);
 
-            System.out.println("\n\nSCC TEST:");
-            System.out.println("printByLayer:");
+            dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
+
+            dOut.writeBytes("SCC TEST:" + System.lineSeparator());
+            dOut.writeBytes("printByLayer:" + System.lineSeparator());
             rt3.printByLayer(dOut);
-            System.out.println("\npreorderPrint:");
+            dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
             rt3.preorderPrint(dOut);
 
 

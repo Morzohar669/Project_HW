@@ -29,13 +29,9 @@ public class RootedTree {
 
         while (true) {
 
-            //TEST
-            System.out.printf("%s", String.valueOf(pointer.getKey()));
-            //
-
             int i = pointer.getKey();
             String s = String.valueOf(i);
-            out.writeUTF(s);
+            out.writeBytes(s);
 
             if (pointer.leftSon != null && flag == 0) {
                 firstLeft = new GraphNode(pointer);
@@ -43,27 +39,18 @@ public class RootedTree {
             }
 
             if (pointer.rightSibling != null) {
-                //TEST
-                System.out.printf(",");
-                //
-                out.writeUTF(",");
+                out.writeBytes(",");
                 pointer = pointer.rightSibling;
                 continue;
             }
 
             if (pointer.specialRightSibling != null) {
-                //TEST
-                System.out.printf(",");
-                //
-                out.writeUTF(",");
+                out.writeBytes(",");
                 pointer = pointer.specialRightSibling;
                 continue;
             }
 
             if (firstLeft != null) {
-                //TEST
-                System.out.println("");
-                //
                 out.writeBytes(System.lineSeparator());
                 pointer = firstLeft.leftSon;
                 flag = 0;
@@ -87,29 +74,17 @@ public class RootedTree {
             return;
         }
 
-        //TEST
-        System.out.printf("%d", pointer.getKey());
-        //
-
         int i = pointer.getKey();
         String s = String.valueOf(i);
-        out.writeUTF(s);
+        out.writeBytes(s);
 
         if (pointer.leftSon != null) {
-            //TEST
-            System.out.printf(",");
-            //
-
-            out.writeUTF(",");
+            out.writeBytes(",");
             preorderPrintRec(out, pointer.leftSon);
         }
 
         if (pointer.rightSibling != null) {
-            //TEST
-            System.out.printf(",");
-            //
-
-            out.writeUTF(",");
+            out.writeBytes(",");
             preorderPrintRec(out, pointer.rightSibling);
         }
         return;
