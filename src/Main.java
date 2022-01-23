@@ -56,6 +56,10 @@ class Main {
             dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
             dOut.writeBytes("TEST 2!! now i will delete 2 edges:  Edge(n1, n2);  Edge(n2, n3);" + System.lineSeparator());
 
+            ///
+            dynGraph2.deleteEdge(t1);
+            dynGraph2.deleteEdge(t2);
+            ///
 
             rt = dynGraph2.bfs(n1);
             dOut.writeBytes("BFS TEST:" + System.lineSeparator());

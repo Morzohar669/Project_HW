@@ -4,18 +4,18 @@ public class DoublyLinkedList {
     DoublyNode headOfList;
     DoublyNode tailOfList;
 
-    public DoublyLinkedList(){
+    public DoublyLinkedList() {
         headOfList = null;
         tailOfList = null;
     }
 
-    public DoublyLinkedList(DoublyNode dNode){
+    public DoublyLinkedList(DoublyNode dNode) {
         this.headOfList = dNode;
         this.tailOfList = dNode;
     }
 
     public void insert(DoublyNode lNode) {
-        if(headOfList == null) {
+        if (headOfList == null) {
             headOfList = lNode;
             tailOfList = lNode;
         } else {
@@ -40,6 +40,5 @@ public class DoublyLinkedList {
             lNode.prevDDL.nextDDL = lNode.nextDDL;
         }
     }
-
 
 }

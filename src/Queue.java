@@ -4,12 +4,12 @@ public class Queue {
     QueueNode headOfQueue;
     QueueNode tailOfQueue;
 
-    public Queue(){
+    public Queue() {
         headOfQueue = null;
         tailOfQueue = null;
     }
 
-    public Queue(QueueNode head){
+    public Queue(QueueNode head) {
         this.headOfQueue = head;
         this.tailOfQueue = head;
     }

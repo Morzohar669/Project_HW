@@ -16,12 +16,7 @@ public class GraphNode {
 
     // For the BFS
     public int color;
-    public int distance; // Also the level of this node in a specific Rooted Tree
-    public GraphNode pi;
-
-    // For DFS
-    public int fTime;
-    public int dTime;
+    public int distance;
 
     // For Trees
     public GraphNode leftSon;
@@ -32,21 +27,21 @@ public class GraphNode {
     public DoublyLinkedList NeighborsD;
 
     // For virtual Node in scc
-    public GraphNode(){
+    public GraphNode() {
         this.key = 0;
         this.inDegree = 0;
         this.outDegree = 0;
         this.NeighborsD = new DoublyLinkedList();
     }
 
-    public GraphNode(int key){
+    public GraphNode(int key) {
         this.key = key;
         this.inDegree = 0;
         this.outDegree = 0;
         this.NeighborsD = new DoublyLinkedList();
     }
 
-    public GraphNode(GraphNode copy){
+    public GraphNode(GraphNode copy) {
         this.key = copy.key;
         this.inDegree = copy.inDegree;
         this.outDegree = copy.outDegree;
@@ -82,5 +77,4 @@ public class GraphNode {
     public void updatePrev(GraphNode newPrevNode) {
         this.prev = newPrevNode;
     }
-
 }

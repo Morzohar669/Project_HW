@@ -19,7 +19,7 @@ public class RootedTree {
     }
 
     public void printByLayer(DataOutputStream out) throws IOException {
-        if (root == null){
+        if (root == null) {
             return;
         }
 
@@ -63,14 +63,14 @@ public class RootedTree {
     }
 
     public void preorderPrint(DataOutputStream out) throws IOException {
-        if (root == null){
+        if (root == null) {
             return;
         }
         preorderPrintRec(out, root);
     }
 
-    public void preorderPrintRec(DataOutputStream out,GraphNode pointer) throws IOException{
-        if (pointer == null){
+    public void preorderPrintRec(DataOutputStream out, GraphNode pointer) throws IOException {
+        if (pointer == null) {
             return;
         }
 
